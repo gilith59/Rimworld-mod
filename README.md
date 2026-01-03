@@ -71,7 +71,7 @@ None currently! Report any issues on the GitHub page.
 
 ## 📝 Credits
 
-- **Author:** gilith + Claude
+- **Author:** Gilith
 - **Inspired by:** Anomaly's PitGate incident
 - **Compatible with:** VFE Insectoids 2 by Oskar Potocki
 
@@ -79,7 +79,3 @@ None currently! Report any issues on the GitHub page.
 
 - **GitHub:** https://github.com/gilith59/Rimworld-mod
 - **Steam Workshop:** [Coming Soon]
-
----
-
-*🤖 Developed with assistance from Gilith*
