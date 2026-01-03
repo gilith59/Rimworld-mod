@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <IncidentDef>
+    <defName>InsectLairEmergence</defName>
+    <label>insect lair emergence</label>
+    <category>ThreatBig</category>
+    <targetTags>
+      <li>Map_PlayerHome</li>
+    </targetTags>
+    <workerClass>InsectLairIncident.IncidentWorker_InsectLairSpawn</workerClass>
+    <baseChance>0.75</baseChance>
+
+    <!-- Production settings - comme PitGate -->
+    <minPopulation>4</minPopulation>
+    <earliestDay>30</earliestDay>
+    <minRefireDays>45</minRefireDays>
+
+    <pointsScaleable>true</pointsScaleable>
+    <minThreatPoints>500</minThreatPoints>
+  </IncidentDef>
+
+</Defs>

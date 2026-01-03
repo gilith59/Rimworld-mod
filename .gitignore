@@ -1,0 +1,12 @@
+# Exclure le token GitHub
+/.claude/
+*.bak
+*.tmp
+*.log
+
+# Fichiers de compilation temporaires
+Source/*.cs.bak
+
+# OS files
+.DS_Store
+Thumbs.db
