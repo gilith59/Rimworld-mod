@@ -38,4 +38,4 @@ Previous version (1.0) had basic functionality. This version adds full VFE Insec
 
 ---
 
-**Credits:** gilith + Claude AI
+**Credits:** gilith59

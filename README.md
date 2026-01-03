@@ -82,4 +82,4 @@ None currently! Report any issues on the GitHub page.
 
 ---
 
-*🤖 Developed with assistance from Claude AI*
+*🤖 Developed with assistance from Gilith*

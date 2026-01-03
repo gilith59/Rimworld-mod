@@ -423,8 +423,7 @@ mcs -target:library \
 
 ## 📞 Contact & Crédits
 
-**Auteur**: gilith
-**Assisté par**: Claude (Anthropic)
+**Auteur**: gilith59
 **Date**: 2026-01-02
 **Version**: 1.0
 

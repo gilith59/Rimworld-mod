@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ModMetaData>
   <name>Insect Lair Incident</name>
-  <author>Claude + Gilith</author>
+  <author>Gilith</author>
   <packageId>gilith.insectlairincident</packageId>
   <version>2.0</version>
   <supportedVersions>
