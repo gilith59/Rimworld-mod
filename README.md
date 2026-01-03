@@ -1,85 +1,47 @@
-# 🐛 Insect Lair Incident
+# 🎮 Gilith's RimWorld Mods Repository
 
-Transform the Odyssey InsectLair into a dangerous random incident that spawns directly on your colony map!
+Welcome to my collection of RimWorld mods! Each mod is organized in its own branch.
 
-## 📋 Features
+## 📦 Available Mods
 
-### Progressive Emergence 🌋
-- The ground cracks and shifts over **8-16 hours** before the cave entrance fully opens
-- Visual effects and rumbling sounds warn you of the danger
-- Time to move structures and prepare defenses!
+### 🐛 [Insect Lair Incident](../../tree/mod/insect-lair-incident) - v2.0
+**Branch:** `mod/insect-lair-incident`
 
-### Recurring Insectoid Waves 🐛
-- Insectoids emerge from the depths **every day**
-- Wave strength scales with your colony's wealth (40% of threat points)
-- Attacks continue until you seal the entrance
+Transform the Odyssey InsectLair into a dangerous random incident that spawns on your colony map!
 
-### VFE Insectoids Integration ⭐
-**If VFE Insectoids 2 is installed:**
-- Each incident chooses a **random geneline** (Sorne, Nuchadus, Chelis, Kemia, or Xanides)
-- The cave fills with insects from that geneline ONLY
-- The boss is the geneline's unique leader (Empress, Titantick, Teramantis, Gigamite, or Silverfish)!
+**Features:**
+- Progressive emergence (8-16 hours warning)
+- Daily insectoid waves scaling with wealth
+- VFE Insectoids 2 integration (one geneline per incident)
+- Unique boss fights per geneline
+- Full vanilla cave exploration
 
-**Without VFE Insectoids:**
-- Works perfectly with vanilla insects
-- HiveQueen boss fight
-
-### Full Vanilla Cave System 🕳️
-- Explore the complete Odyssey InsectLair cave
-- All vanilla rewards: Gravcore, GravlitePanel, ancient crates, InsectJelly
-- Boss must be defeated to unlock cave collapse
-
-### Boss Fight 💀
-- A massive boss guards the depths
-- Defeat it to unlock the ability to collapse the entrance
-- Stop the waves permanently!
-
-## ⚙️ Balance
-
-- **Earliest appearance:** Day 30 with 4+ colonists
-- **Minimum interval:** 45 days between incidents
-- **Wave strength:** 40% of colony threat points
-- **Wave frequency:** Every 1 day (in-game)
-- **Safety:** Cannot spawn in unexplored (fogged) areas
-
-## 📦 Requirements
-
-- **RimWorld 1.6** (compatible with 1.5)
-- **Odyssey DLC** (required)
-- **VFE Insectoids 2** (optional - adds geneline variety)
-
-## 🎮 How to Play
-
-1. The incident triggers randomly (like other major threats)
-2. You receive a warning letter when the ground starts cracking
-3. Prepare your defenses during the 8-16 hour emergence phase
-4. Fight off daily insectoid waves
-5. Enter the cave when ready
-6. Defeat the boss and claim rewards
-7. Collapse the entrance to stop the waves
-
-## 🔧 Installation
-
-1. Download the mod
-2. Extract to your RimWorld/Mods folder
-3. Enable in mod list (load order: after Harmony, Core, DLCs, and VFE Insectoids if using)
-4. Start or continue your game
-
-## 🐞 Known Issues
-
-None currently! Report any issues on the GitHub page.
-
-## 📝 Credits
-
-- **Author:** gilith + Claude
-- **Inspired by:** Anomaly's PitGate incident
-- **Compatible with:** VFE Insectoids 2 by Oskar Potocki
-
-## 🔗 Links
-
-- **GitHub:** https://github.com/gilith59/Rimworld-mod
-- **Steam Workshop:** [Coming Soon]
+**Requirements:** RimWorld 1.6, Odyssey DLC
 
 ---
 
-*🤖 Developed with assistance from Claude AI*
+## 📥 How to Download
+
+1. Navigate to the mod's branch
+2. Download the ZIP or clone the branch
+3. Extract to `RimWorld/Mods/` folder
+4. Enable in mod list
+
+## 🌿 Branch Structure
+
+Each mod has its own branch:
+- `mod/insect-lair-incident` - Insect Lair Incident mod
+- `mod/[mod-name]` - Future mods
+
+## 🐛 Bug Reports
+
+Found a bug? Open an issue and specify which mod!
+
+## 📝 Credits
+
+**Author:** gilith59  
+**Development Assistant:** Claude AI
+
+---
+
+*More mods coming soon!* 🚀
