@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>Beerophage</name>
+	<author>Roman</author>
+	<supportedVersions>
+		<li>1.4</li>
+		<li>1.5</li>
+		<li>1.6</li>
+	</supportedVersions>
+	<packageId>roman.beerophage</packageId>
+	<description>Introducing Beerophage, a mod that adds alcohol-consuming xenotypes to RimWorld. These beings have evolved to subsist on fermented beverages instead of blood, creating unique gameplay mechanics around brewing, alcohol management, and intoxication-based abilities.
+
+Summary of Features:
+
+- New Xenotypes: Experience beer-loving creatures with unique abilities tied to alcohol consumption
+- Alcohol Management: Beerophages require various alcoholic beverages for sustenance and special abilities
+- Brewing Dependencies: Enhanced interaction with brewing and fermentation mechanics
+- Intoxication Abilities: Special powers activated through alcohol consumption
+- Tolerance System: Manage alcohol tolerance and dependency mechanics
+
+Transform your colony with these alcohol-dependent beings and master the art of brewing to keep your Beerophages thriving!</description>
+	<modDependencies>
+		<li>
+			<packageId>Ludeon.RimWorld.Biotech</packageId>
+			<displayName>Biotech</displayName>
+		</li>
+	</modDependencies>
+	<loadAfter>
+		<li>Ludeon.RimWorld</li>
+		<li>Ludeon.RimWorld.Royalty</li>
+		<li>Ludeon.RimWorld.Ideology</li>
+		<li>Ludeon.RimWorld.Biotech</li>
+	</loadAfter>
+</ModMetaData>

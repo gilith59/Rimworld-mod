@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+  <!-- Remove negative alcohol effects for beerophages -->
+  <Operation Class="PatchOperationSequence">
+    <operations>
+      
+      <!-- Patch Beer to only give positive effects to beerophages -->
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/ThingDef[defName="Beer"]/ingestible/outcomeDoers</xpath>
+        <value>
+          <li Class="BeerophageMod.IngestionOutcomeDoer_BeerophageAlcoholFilter"/>
+        </value>
+      </li>
+      
+      <!-- Patch other alcoholic drinks if they exist -->
+      <li Class="PatchOperationAdd">
+        <xpath>/Defs/ThingDef[defName="Ambrosia"]/ingestible/outcomeDoers</xpath>
+        <value>
+          <li Class="BeerophageMod.IngestionOutcomeDoer_BeerophageAlcoholFilter"/>
+        </value>
+      </li>
+      
+    </operations>
+  </Operation>
+
+</Patch>

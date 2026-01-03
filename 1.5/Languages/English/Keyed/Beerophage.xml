@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <!-- Beergen system -->
+  <BeergenRestoredFrom>{0} restored {1}% beergen</BeergenRestoredFrom>
+  <Beergen restoration>Beergen restoration</Beergen restoration>
+  <Beergen restoration from consuming this item>Beergen restoration from consuming this item</Beergen restoration from consuming this item>
+
+</LanguageData>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+
+  <BeerMeditationStarted>{0} has begun the sacred beer meditation. The path to poing ivre mastery will take 10 days of uninterrupted trance.</BeerMeditationStarted>
+  <BeerMeditationCompleted>{0} has achieved enlightenment! The legendary poing ivre mastery has been unlocked through dedicated meditation.</BeerMeditationCompleted>
+  <BeerMeditationInterrupted>{0}'s beer meditation was brutally interrupted! They suffer severe spiritual and physical consequences.</BeerMeditationInterrupted>
+  
+  <EnterMeditation>Enter beer meditation</EnterMeditation>
+  <ExitMeditation>Exit meditation</ExitMeditation>
+  <CannotEnterMeditation>Cannot enter meditation</CannotEnterMeditation>
+  
+  <PoingIvreActivated>{0} channels the drunken fist! Their movements become supernatural and unpredictable.</PoingIvreActivated>
+
+</LanguageData>

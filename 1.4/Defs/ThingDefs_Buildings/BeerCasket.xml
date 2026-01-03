@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="FurnitureWithQualityBase">
+    <defName>BeerCasket</defName>
+    <label>beer casket</label>
+    <description>A specialized rest chamber designed for beerophages, filled with fermented beverage vapors that accelerate the rest process. The casket slowly infuses the occupant with alcoholic essence, satisfying their need for beer while they rest. It can connect to other brewing devices which confer additional bonuses on the rester.\n\nOnly those with the beer dependency gene can use the beer casket effectively.</description>
+    <thingClass>BeerophageMod.Building_BeerCasket</thingClass>
+    <tickerType>Normal</tickerType>
+    <fillPercent>0.4</fillPercent>
+    <pathCost>42</pathCost>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <canOverlapZones>false</canOverlapZones>
+    <passability>PassThroughOnly</passability>
+    <defaultPlacingRot>South</defaultPlacingRot>
+    <thingCategories Inherit="False">
+      <li>BuildingsMisc</li>
+    </thingCategories>
+    <graphicData>
+      <texPath>Things/Building/Misc/DeathrestCasket/Draincasket</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(2,2)</drawSize>
+    </graphicData>
+    <building>
+      <bed_showSleeperBody>true</bed_showSleeperBody>
+      <ai_chillDestination>false</ai_chillDestination>
+      <bed_healPerDay>2</bed_healPerDay>
+      <bed_canBeMedical>false</bed_canBeMedical>
+      <bed_DisplayOwnerType>false</bed_DisplayOwnerType>
+      <bed_DisplayOwnersInInspectString>false</bed_DisplayOwnersInInspectString>
+      <bed_countsForBedroomOrBarracks>false</bed_countsForBedroomOrBarracks>
+      <bed_humanlike>true</bed_humanlike>
+      <buildingTags>
+        <li>Bed</li>
+        <li>Beerophage</li>
+      </buildingTags>
+    </building>
+    <designationCategory>Beerophage</designationCategory>
+    <uiOrder>2000</uiOrder>
+    <statBases>
+      <MaxHitPoints>200</MaxHitPoints>
+      <WorkToBuild>2500</WorkToBuild>
+      <Mass>50</Mass>
+      <Flammability>0.5</Flammability>
+      <Beauty>3</Beauty>
+      <BedRestEffectiveness>1.2</BedRestEffectiveness>
+      <Comfort>0.8</Comfort>
+      <ImmunityGainSpeedFactor>1.05</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+    </statBases>
+    <size>(1,2)</size>
+    <costList>
+      <Steel>100</Steel>
+      <ComponentIndustrial>3</ComponentIndustrial>
+      <Beer>10</Beer>
+    </costList>
+    <comps>
+      <li Class="BeerophageMod.CompProperties_AssignableToPawn_SingleOwner">
+        <drawAssignmentOverlay>false</drawAssignmentOverlay>
+      </li>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>75</basePowerConsumption>
+        <idlePowerDraw>0</idlePowerDraw>
+        <alwaysDisplayAsUsingPower>true</alwaysDisplayAsUsingPower>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>0.2</fuelConsumptionRate>
+        <fuelCapacity>10</fuelCapacity>
+        <fuelLabel>Beer</fuelLabel>
+        <fuelFilter>
+          <thingDefs>
+            <li>Beer</li>
+          </thingDefs>
+        </fuelFilter>
+        <initialFuelPercent>1</initialFuelPercent>
+        <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+        <externalTicking>true</externalTicking>
+        <autoRefuelPercent>0.1</autoRefuelPercent>
+      </li>
+    </comps>
+    <researchPrerequisites><li>BeerCasketTechnology</li></researchPrerequisites>
+  </ThingDef>
+
+</Defs>

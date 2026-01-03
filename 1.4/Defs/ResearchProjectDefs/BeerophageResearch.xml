@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ResearchProjectDef>
+    <defName>BeerCasketTechnology</defName>
+    <label>beer casket technology</label>
+    <description>Develop specialized resting chambers that use alcoholic vapors to sustain beerophages. These caskets provide enhanced rest and help maintain beergen levels through passive alcohol absorption.</description>
+    <baseCost>1500</baseCost>
+    <techLevel>Industrial</techLevel>
+    <tab>Main</tab>
+    <researchViewX>5.00</researchViewX>
+    <researchViewY>4.50</researchViewY>
+    <prerequisites>
+      <li>Brewing</li>
+      <li>ComplexFurniture</li>
+    </prerequisites>
+  </ResearchProjectDef>
+
+</Defs>

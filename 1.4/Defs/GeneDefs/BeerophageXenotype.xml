@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <XenotypeDef>
+    <defName>Beerophage</defName>
+    <label>beerophage</label>
+    <description>Beerophages are a unique human subspecies that has evolved an unusual dependency on fermented beverages, particularly beer. Their biology has adapted over generations to not only tolerate but require regular alcohol consumption for optimal function. These individuals possess enhanced liver function and neurological resistance to alcohol's negative effects, allowing them to consume quantities that would incapacitate normal humans.\n\nBeerophages are often found in communities with strong brewing traditions, where their unique physiology makes them ideal brewmasters and tavern keepers. Their enhanced alcohol tolerance makes them excellent negotiators in drinking contests and social situations involving alcohol. However, their dependency means they must maintain a steady supply of beer or face withdrawal symptoms.</description>
+    <descriptionShort>Beerophages are alcohol-dependent humans with enhanced tolerance to alcohol effects. They require regular beer consumption to function properly but can handle much more alcohol than normal humans without negative effects.</descriptionShort>
+    <iconPath>UI/Icons/Xenotypes/Beerophage</iconPath>
+    <combatPowerFactor>1.0</combatPowerFactor>
+    <displayPriority>50</displayPriority>
+    <genes>
+      <!-- Core beerophage traits -->
+      <li>Beergenic</li>
+      <li>BeergenEmpowermentGene</li>
+      <li>AlcoholTolerance_Enhanced</li>
+      
+      <!-- Positive traits that synergize with alcohol culture -->
+      <li>Beauty_Pretty</li>
+      <li>AptitudeStrong_Social</li>
+      <li>AptitudeStrong_Cooking</li>
+      
+      <!-- Balanced negative traits -->
+      <li>AptitudePoor_Intellectual</li>
+      <li>Aggression_Aggressive</li>
+    </genes>
+  </XenotypeDef>
+
+</Defs>

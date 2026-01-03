@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <AbilityDef>
+    <defName>PoingIvre</defName>
+    <label>poing ivre</label>
+    <description>Channel the legendary drunken fist mastery gained through beer meditation. This devastating combat technique consumes beergen to grant supernatural fighting abilities for a short time. The technique embodies unpredictable, flowing movements that confuse enemies while delivering devastating strikes.\n\nConsumes 25% beergen per use.</description>
+    <iconPath>UI/Abilities/Berserk</iconPath>
+    <cooldownTicksRange>300000</cooldownTicksRange>
+    <aiCanUse>true</aiCanUse>
+    <verbProperties>
+      <verbClass>Verb_CastAbility</verbClass>
+      <range>0</range>
+      <warmupTime>0.5</warmupTime>
+      <drawAimPie>false</drawAimPie>
+      <requireLineOfSight>false</requireLineOfSight>
+      <targetParams>
+        <canTargetSelf>true</canTargetSelf>
+        <canTargetPawns>false</canTargetPawns>
+        <canTargetBuildings>false</canTargetBuildings>
+      </targetParams>
+    </verbProperties>
+    <comps>
+      <li Class="BeerophageMod.CompProperties_AbilityPoingIvre">
+        <beergenCost>0.25</beergenCost>
+        <durationTicks>3600</durationTicks>
+      </li>
+    </comps>
+  </AbilityDef>
+
+</Defs>

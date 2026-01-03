@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Beergenic Gene (Primary beer resource system) -->
+  <GeneDef>
+    <defName>Beergenic</defName>
+    <label>beergenic</label>
+    <labelShortAdj>beergenic</labelShortAdj>
+    <description>Carriers of this gene have a reserve of biological strength powered by a resource called beergen. This energy can only be replenished by consuming alcoholic beverages, particularly beer. Without regular alcohol consumption, beergen levels will drop, causing severe mood penalties and eventual health problems.\n\nCarriers lose 2 beergen per day from biological entropy.</description>
+    <geneClass>Gene_Hemogen</geneClass>
+    <resourceGizmoType>GeneGizmo_ResourceHemogen</resourceGizmoType>
+    <resourceLabel>beergen</resourceLabel>
+    <resourceGizmoThresholds>
+      <li>0.25</li>
+      <li>0.5</li>
+      <li>0.75</li>
+    </resourceGizmoThresholds>
+    <showGizmoOnWorldView>true</showGizmoOnWorldView>
+    <showGizmoWhenDrafted>true</showGizmoWhenDrafted>
+    <resourceDescription>A reserve of biological strength that can only be replenished by consuming alcoholic beverages.\n\nBeergen can be increased by drinking beer, ale, or other alcoholic drinks. The more potent the alcohol, the more beergen is gained.\n\nWhen beergen is above 70%, {PAWN_nameDef} gains enhanced physical and mental capabilities. If beergen reaches zero, {PAWN_nameDef} will become very unhappy and may suffer health complications.</resourceDescription>
+    <iconPath>UI/Icons/Genes/VRE_LowHemogenDrain</iconPath>
+    <displayCategory>Beergen</displayCategory>
+    <displayOrderInCategory>-2</displayOrderInCategory>
+    <customEffectDescriptions>
+      <li>Gives beergen supply that must be replenished with alcohol.</li>
+      <li>When beergen is above 70%, grants enhanced capabilities.</li>
+    </customEffectDescriptions>
+    <symbolPack>
+      <prefixSymbols>
+        <li>
+          <symbol>beer</symbol>
+        </li>
+        <li>
+          <symbol>brew</symbol>
+        </li>
+        <li>
+          <symbol>hops</symbol>
+        </li>
+      </prefixSymbols>
+      <suffixSymbols>
+        <li>
+          <symbol>drinker</symbol>
+        </li>
+        <li>
+          <symbol>sipper</symbol>
+        </li>
+        <li>
+          <symbol>genic</symbol>
+        </li>
+      </suffixSymbols>
+    </symbolPack>
+    <minAgeActive>3</minAgeActive>
+    <resourceLossPerDay>0.02</resourceLossPerDay>
+    <biostatCpx>1</biostatCpx>
+    <biostatMet>-2</biostatMet>
+    <selectionWeight>0</selectionWeight>
+  </GeneDef>
+
+  <!-- High Beergen Drain Gene -->
+  <GeneDef>
+    <defName>BeergenDrain</defName>
+    <label>beergen drain</label>
+    <labelShortAdj>draining</labelShortAdj>
+    <description>Carriers lose an additional 8 beergen per day from biological entropy, requiring even more frequent alcohol consumption.</description>
+    <resourceLabel>beergen</resourceLabel>
+    <geneClass>Gene_HemogenDrain</geneClass>
+    <iconPath>UI/Icons/Genes/VRE_ExtremeHemogenDrain</iconPath>
+    <prerequisite>Beergenic</prerequisite>
+    <resourceLossPerDay>0.08</resourceLossPerDay>
+    <displayCategory>Beergen</displayCategory>
+    <displayOrderInCategory>-1</displayOrderInCategory>
+    <minAgeActive>3</minAgeActive>
+    <biostatCpx>1</biostatCpx>
+    <biostatMet>6</biostatMet>
+  </GeneDef>
+
+  <!-- Enhanced Alcohol Tolerance Gene -->
+  <GeneDef>
+    <defName>AlcoholTolerance_Enhanced</defName>
+    <label>enhanced alcohol tolerance</label>
+    <labelShortAdj>alcohol-resistant</labelShortAdj>
+    <description>Carriers of this gene have enhanced liver function and neurological resistance to alcohol effects. They can consume large amounts of alcohol with reduced negative effects while still gaining the positive benefits.</description>
+    <iconPath>UI/Icons/Genes/VRE_DangerousUVSensitivity</iconPath>
+    <displayCategory>Miscellaneous</displayCategory>
+    <biostatMet>2</biostatMet>
+    <symbolPack>
+      <prefixSymbols>
+        <li>
+          <symbol>resist</symbol>
+        </li>
+        <li>
+          <symbol>hardy</symbol>
+        </li>
+      </prefixSymbols>
+      <suffixSymbols>
+        <li>
+          <symbol>liver</symbol>
+        </li>
+        <li>
+          <symbol>resistant</symbol>
+        </li>
+      </suffixSymbols>
+    </symbolPack>
+  </GeneDef>
+
+  <!-- Beergen Empowerment Gene (Conditional stat bonuses when beergen > 70%) -->
+  <GeneDef>
+    <defName>BeergenEmpowermentGene</defName>
+    <label>beergen empowerment</label>
+    <labelShortAdj>empowered</labelShortAdj>
+    <description>When beergen levels are high (above 70%), carriers gain enhanced physical and mental capabilities including improved construction speed, combat effectiveness, and immunity.</description>
+    <geneClass>BeerophageMod.Gene_BeergenEmpowerment</geneClass>
+    <iconPath>UI/Icons/Genes/VRE_LowHemogenDrain</iconPath>
+    <displayCategory>Beergen</displayCategory>
+    <displayOrderInCategory>-1</displayOrderInCategory>
+    <prerequisite>Beergenic</prerequisite>
+    <customEffectDescriptions>
+      <li>Stat bonuses when beergen is above 70%.</li>
+    </customEffectDescriptions>
+    <biostatCpx>1</biostatCpx>
+    <biostatMet>2</biostatMet>
+    <selectionWeight>0</selectionWeight>
+  </GeneDef>
+
+  <!-- Alcohol craving gene -->
+  <GeneDef>
+    <defName>BeerophageAlcoholCraving</defName>
+    <label>alcohol craving</label>
+    <iconPath>UI/Icons/Genes/VRE_SanguoFeeder</iconPath>
+    <description>This person periodically craves alcohol even when their beergen levels are full. This psychological and physiological need ensures they maintain regular drinking habits.</description>
+    <displayCategory>Beergen</displayCategory>
+    <displayOrderInCategory>205</displayOrderInCategory>
+    <biostatCpx>1</biostatCpx>
+    <biostatMet>1</biostatMet>
+    <geneClass>BeerophageMod.Gene_BeerophageAlcoholCraving</geneClass>
+    <symbolPack>
+      <prefixSymbols>
+        <li><symbol>drink</symbol></li>
+        <li><symbol>thirst</symbol></li>
+      </prefixSymbols>
+      <suffixSymbols>
+        <li><symbol>drinker</symbol></li>
+        <li><symbol>sipper</symbol></li>
+      </suffixSymbols>
+    </symbolPack>
+    <minAgeActive>13</minAgeActive>
+  </GeneDef>
+
+</Defs>

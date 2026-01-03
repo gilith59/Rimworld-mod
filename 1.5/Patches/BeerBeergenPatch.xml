@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+  <!-- Patch beer to provide beergen to beergenic pawns -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="Beer"]/ingestible/outcomeDoers</xpath>
+    <value>
+      <li Class="IngestionOutcomeDoer_OffsetHemogen">
+        <offset>0.15</offset>
+      </li>
+    </value>
+  </Operation>
+
+</Patch>

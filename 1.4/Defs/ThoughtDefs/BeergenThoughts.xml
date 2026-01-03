@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThoughtDef>
+    <defName>BeergenLow</defName>
+    <workerClass>ThoughtWorker_Hediff</workerClass>
+    <hediff>BeergenCraving</hediff>
+    <validWhileDespawned>true</validWhileDespawned>
+    <stages>
+      <li>
+        <label>low beergen</label>
+        <description>My beergen levels are getting low. I need to drink some beer soon or I'll start feeling terrible.</description>
+        <baseMoodEffect>-10</baseMoodEffect>
+      </li>
+      <li>
+        <label>very low beergen</label>
+        <description>My beergen is critically low! I desperately need alcohol to function properly.</description>
+        <baseMoodEffect>-20</baseMoodEffect>
+      </li>
+      <li>
+        <label>no beergen</label>
+        <description>I have no beergen left! Without alcohol, I feel like I'm dying. Everything hurts and nothing makes sense.</description>
+        <baseMoodEffect>-35</baseMoodEffect>
+      </li>
+    </stages>
+  </ThoughtDef>
+
+</Defs>
