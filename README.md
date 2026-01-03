@@ -18,6 +18,20 @@ Transform the Odyssey InsectLair into a dangerous random incident that spawns on
 
 **Requirements:** RimWorld 1.6, Odyssey DLC
 
+### 🍺 [Beerophage](../../tree/mod/beerophage)
+**Branch:** `mod/beerophage`
+
+A Sanguophage variant that drinks beer instead of blood! Complete xenotype with unique mechanics.
+
+**Features:**
+- Beergen resource (like Hemogen but for beer)
+- Beer meditation chambers
+- Unique genes and abilities
+- "Poing Ivre" (Drunken Fist) ability
+- Beer casket for regeneration
+
+**Requirements:** RimWorld 1.5, Biotech DLC
+
 ---
 
 ## 📥 How to Download
@@ -39,8 +53,7 @@ Found a bug? Open an issue and specify which mod!
 
 ## 📝 Credits
 
-**Author:** gilith59  
-**Development Assistant:** Claude AI
+**Author:** gilith59
 
 ---
 
