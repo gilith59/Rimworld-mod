@@ -13,6 +13,14 @@ namespace InsectLairIncident
         {
             Map map = (Map)parms.target;
 
+            // Empêcher incidents multiples - vérifier s'il y a déjà un InsectLairEntrance actif
+            if (map.listerThings.AllThings.Any(t =>
+                t.def.defName == "InsectLairEntrance" || t.def.defName == "InsectLairSpawner"))
+            {
+                Log.Warning("[InsectLairIncident] Cannot spawn - InsectLair already active on map");
+                return false;
+            }
+
             // Chercher emplacement 6x6
             if (!TryFindSpawnCell(map, out IntVec3 cell))
                 return false;
@@ -28,6 +36,14 @@ namespace InsectLairIncident
             {
                 waveSpawner = new MapComponent_InsectLairWaveSpawner(map);
                 map.components.Add(waveSpawner);
+            }
+
+            // Ajouter monitor pour vérifier la mort du boss depuis la surface
+            MapComponent_InsectLairMonitor monitor = map.GetComponent<MapComponent_InsectLairMonitor>();
+            if (monitor == null)
+            {
+                monitor = new MapComponent_InsectLairMonitor(map);
+                map.components.Add(monitor);
             }
 
             float points = parms.points;

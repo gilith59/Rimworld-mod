@@ -80,7 +80,10 @@ namespace InsectLairIncident
                 tracker = new MapComponent_HiveQueenTracker(map);
                 map.components.Add(tracker);
             }
-            tracker.RegisterQueen(queen);
+
+            // Trouver la map parent (colonie) pour l'auto-collapse
+            Map parentMap = Find.Maps.FirstOrDefault(m => m.IsPlayerHome);
+            tracker.RegisterQueen(queen, parentMap);
 
             // Log.Message($"[InsectLairIncident] Registered {queen.kindDef.defName} ({geneline.defName} geneline) at {queen.Position}");
         }

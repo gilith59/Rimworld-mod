@@ -69,16 +69,24 @@ namespace InsectLairIncident
                     return GetVanillaGeneline();
                 }
 
-                // Construire liste pondérée
+                // Construire liste pondérée avec distribution forcée
+                // Empress (VFEI_Sorne): 60%, Autres: 10% chacun
                 List<Def> weightedGenelines = new List<Def>();
                 foreach (var geneline in allGenelines)
                 {
                     Def genelineDef = geneline as Def;
-                    var spawnWeightField = insectGenelineDefType.GetField("spawnWeight");
-                    float weight = (float)spawnWeightField.GetValue(geneline);
 
-                    // Ajouter proportionnellement au poids (ex: 0.8 = 80 copies)
-                    int copies = Mathf.RoundToInt(weight * 100);
+                    // Forcer la distribution: Empress 60%, autres 10%
+                    int copies;
+                    if (genelineDef.defName == "VFEI_Sorne")
+                    {
+                        copies = 60; // Empress: 60%
+                    }
+                    else
+                    {
+                        copies = 10; // Tous les autres: 10% chacun
+                    }
+
                     for (int i = 0; i < copies; i++)
                     {
                         weightedGenelines.Add(genelineDef);

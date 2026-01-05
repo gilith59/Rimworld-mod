@@ -7,7 +7,7 @@ mcs -target:library \
 -reference:"../../../RimWorldWin64_Data/Managed/Assembly-CSharp.dll" \
 -reference:"../../../RimWorldWin64_Data/Managed/UnityEngine.CoreModule.dll" \
 -reference:"../../../RimWorldWin64_Data/Managed/UnityEngine.dll" \
--reference:"/home/gilith/Rimworld mod/mod rimworld/Harmony/Current/Assemblies/0Harmony.dll" \
+-reference:"/home/gilith/Rimworld mod/references/Harmony/Current/Assemblies/0Harmony.dll" \
 -reference:"../../../RimWorldWin64_Data/Managed/netstandard.dll" \
 -nowarn:0219,0162,0414 \
 *.cs

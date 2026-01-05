@@ -2,6 +2,7 @@ using RimWorld;
 using Verse;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 
 namespace InsectLairIncident
 {
@@ -9,24 +10,66 @@ namespace InsectLairIncident
     {
         public override IEnumerable<Gizmo> CompGetGizmosExtra()
         {
-            foreach (Gizmo gizmo in base.CompGetGizmosExtra())
+            // Créer notre propre bouton au lieu de compter sur base (qui peut ne rien retourner)
+            MapPortal portal = parent as MapPortal;
+            if (portal == null)
+                yield break;
+
+            bool bossDefeated = false;
+            if (portal.PocketMap != null)
             {
-                Command cmd = gizmo as Command;
-                if (cmd != null)
+                MapComponent_HiveQueenTracker tracker = portal.PocketMap.GetComponent<MapComponent_HiveQueenTracker>();
+                bossDefeated = (tracker != null && tracker.IsQueenDead());
+            }
+
+            CompProperties_Sealable props = base.props as CompProperties_Sealable;
+
+            Command_Action sealCmd = new Command_Action
+            {
+                defaultLabel = props?.sealCommandLabel ?? "Collapse cave entrance",
+                defaultDesc = props?.sealCommandDesc ?? "Permanently seal this entrance.",
+                icon = ContentFinder<Texture2D>.Get(props?.sealTexPath ?? "UI/Commands/FillInCaveEntrance", true),
+                action = delegate
                 {
-                    // Chercher le tracker sur le pocket map (la cave), pas la surface
-                    MapPortal portal = parent as MapPortal;
-                    if (portal != null && portal.PocketMap != null)
+                    string confirmText = props?.confirmSealText ?? "Are you sure you want to seal this entrance?";
+                    if (props != null && !string.IsNullOrEmpty(props.confirmSealText))
                     {
-                        MapComponent_HiveQueenTracker tracker = portal.PocketMap.GetComponent<MapComponent_HiveQueenTracker>();
-                        if (tracker != null && !tracker.IsQueenDead())
+                        // Compter les colonists dans la cave
+                        int colonistsInside = portal.PocketMap?.mapPawns.FreeColonistsSpawnedCount ?? 0;
+                        if (colonistsInside > 0)
                         {
-                            cmd.Disable("Hive Queen must be defeated first");
+                            confirmText = string.Format(props.confirmSealText, $"\n\n{colonistsInside} colonist(s) are still inside!");
+                        }
+                        else
+                        {
+                            confirmText = string.Format(props.confirmSealText, "");
                         }
                     }
+
+                    Find.WindowStack.Add(Dialog_MessageBox.CreateConfirmation(
+                        confirmText,
+                        delegate
+                        {
+                            base.Seal();
+                        }
+                    ));
                 }
-                yield return gizmo;
+            };
+
+            // Griser si boss pas mort
+            if (!bossDefeated)
+            {
+                if (portal.PocketMap != null)
+                {
+                    sealCmd.Disable("Boss must be defeated first. The lair will auto-collapse 72h after boss death.");
+                }
+                else
+                {
+                    sealCmd.Disable("Enter the lair and defeat the boss first.");
+                }
             }
+
+            yield return sealCmd;
         }
     }
 
