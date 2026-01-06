@@ -69,23 +69,15 @@ namespace InsectLairIncident
                     return GetVanillaGeneline();
                 }
 
-                // Construire liste pondérée avec distribution forcée
-                // Empress (VFEI_Sorne): 60%, Autres: 10% chacun
+                // Construire liste pondérée avec distribution égale (TEST VERSION)
+                // Toutes les genelines: 20% chacune
                 List<Def> weightedGenelines = new List<Def>();
                 foreach (var geneline in allGenelines)
                 {
                     Def genelineDef = geneline as Def;
 
-                    // Forcer la distribution: Empress 60%, autres 10%
-                    int copies;
-                    if (genelineDef.defName == "VFEI_Sorne")
-                    {
-                        copies = 60; // Empress: 60%
-                    }
-                    else
-                    {
-                        copies = 10; // Tous les autres: 10% chacun
-                    }
+                    // TEST VERSION: Distribution égale pour faciliter les tests
+                    int copies = 20; // 20% chacun
 
                     for (int i = 0; i < copies; i++)
                     {

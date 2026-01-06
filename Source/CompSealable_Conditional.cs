@@ -61,7 +61,7 @@ namespace InsectLairIncident
             {
                 if (portal.PocketMap != null)
                 {
-                    sealCmd.Disable("Boss must be defeated first. The lair will auto-collapse 72h after boss death.");
+                    sealCmd.Disable("Boss must be defeated first. The lair will auto-collapse 5 seconds after boss death.");
                 }
                 else
                 {

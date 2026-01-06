@@ -1,6 +1,7 @@
 using RimWorld;
 using Verse;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace InsectLairIncident
 {
@@ -12,8 +13,10 @@ namespace InsectLairIncident
         public override void Generate(Map map, GenStepParams parms)
         {
             // Récupérer la geneline depuis le GameComponent global
+            // Utiliser le portal ID en cours de génération
             GameComponent_InsectLairGenelines globalComp = Current.Game.GetComponent<GameComponent_InsectLairGenelines>();
-            GenelineData geneline = globalComp?.GetGeneline(map);
+            int portalID = MapPortalLinkHelper.currentGeneratingPortalID;
+            GenelineData geneline = (portalID >= 0) ? globalComp?.GetGeneline(portalID) : null;
 
             if (geneline == null)
             {
@@ -73,6 +76,12 @@ namespace InsectLairIncident
                 return;
             }
 
+            // Remplacer les hives vanilla par les hives VFE si nécessaire
+            if (!geneline.isVanilla)
+            {
+                ReplaceVanillaHivesWithVFE(map, geneline);
+            }
+
             // Enregistrer dans MapComponent
             MapComponent_HiveQueenTracker tracker = map.GetComponent<MapComponent_HiveQueenTracker>();
             if (tracker == null)
@@ -86,6 +95,67 @@ namespace InsectLairIncident
             tracker.RegisterQueen(queen, parentMap);
 
             // Log.Message($"[InsectLairIncident] Registered {queen.kindDef.defName} ({geneline.defName} geneline) at {queen.Position}");
+        }
+
+        private void ReplaceVanillaHivesWithVFE(Map map, GenelineData geneline)
+        {
+            // Trouver toutes les hives vanilla sur la map
+            List<Thing> vanillaHives = map.listerThings.ThingsOfDef(ThingDefOf.Hive).ToList();
+
+            if (vanillaHives.Count == 0)
+            {
+                Log.Warning("[InsectLairIncident] No vanilla hives found to replace");
+                return;
+            }
+
+            // Déterminer le ThingDef VFE correspondant
+            ThingDef vfeHiveDef = GetVFEHiveForGeneline(geneline.defName);
+            if (vfeHiveDef == null)
+            {
+                Log.Warning($"[InsectLairIncident] No VFE hive found for geneline {geneline.defName}");
+                return;
+            }
+
+            Log.Message($"[InsectLairIncident] Replacing {vanillaHives.Count} vanilla hives with {vfeHiveDef.defName}");
+
+            // Remplacer chaque hive
+            foreach (Thing vanillaHive in vanillaHives)
+            {
+                IntVec3 position = vanillaHive.Position;
+                Rot4 rotation = vanillaHive.Rotation;
+                Faction faction = vanillaHive.Faction;
+
+                // Détruire la vanilla hive
+                vanillaHive.Destroy(DestroyMode.Vanish);
+
+                // Spawner la hive VFE
+                Thing vfeHive = ThingMaker.MakeThing(vfeHiveDef, null);
+                vfeHive.SetFaction(faction);
+                GenSpawn.Spawn(vfeHive, position, map, rotation);
+            }
+
+            Log.Message($"[InsectLairIncident] Successfully replaced all hives with {vfeHiveDef.defName}");
+        }
+
+        private ThingDef GetVFEHiveForGeneline(string genelineDefName)
+        {
+            string hiveDef = null;
+
+            if (genelineDefName == "VFEI_Nuchadus")
+                hiveDef = "VFEI2_NuchadusHive";
+            else if (genelineDefName == "VFEI_Chelis")
+                hiveDef = "VFEI2_ChelisHive";
+            else if (genelineDefName == "VFEI_Kemia")
+                hiveDef = "VFEI2_KemianHive";
+            else if (genelineDefName == "VFEI_Xanides")
+                hiveDef = "VFEI2_XanidesHive";
+            // VFEI_Sorne utilise Hive vanilla
+
+            if (hiveDef != null)
+            {
+                return DefDatabase<ThingDef>.GetNamedSilentFail(hiveDef);
+            }
+            return null;
         }
     }
 }

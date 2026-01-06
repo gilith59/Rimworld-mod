@@ -31,6 +31,13 @@ namespace InsectLairIncident
 
             if (cachedPortal != null && cachedPortal.PocketMap != null)
             {
+                // Lier la pocket map au portal ID pour le tracking de geneline
+                GameComponent_InsectLairGenelines globalComp = Current.Game.GetComponent<GameComponent_InsectLairGenelines>();
+                if (globalComp != null)
+                {
+                    globalComp.LinkPocketMapToPortal(cachedPortal.PocketMap.uniqueID, cachedPortal.thingIDNumber);
+                }
+
                 // Vérifier le tracker de la pocket map
                 MapComponent_HiveQueenTracker tracker = cachedPortal.PocketMap.GetComponent<MapComponent_HiveQueenTracker>();
                 if (tracker != null)

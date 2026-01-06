@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+    <!-- Alert for Insect Lair Collapse -->
+    <InsectLairCollapsing>Insect Lair Collapsing</InsectLairCollapsing>
+    <InsectLairCollapsingDesc>The insect lair is unstable and will collapse soon! All pawns inside the lair will be crushed when it collapses. Evacuate immediately!</InsectLairCollapsingDesc>
+</LanguageData>

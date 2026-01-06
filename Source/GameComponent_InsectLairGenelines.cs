@@ -9,60 +9,89 @@ namespace InsectLairIncident
     /// </summary>
     public class GameComponent_InsectLairGenelines : GameComponent
     {
-        // Map de parentMapId -> geneline choisie
+        // Map de portalThingID -> geneline choisie (permet multiple lairs simultanés)
         private Dictionary<int, GenelineData> activeGenelines = new Dictionary<int, GenelineData>();
+
+        // Map de pocketMapId -> portalThingID (pour retrouver la geneline depuis la pocket map)
+        private Dictionary<int, int> pocketMapToPortal = new Dictionary<int, int>();
 
         public GameComponent_InsectLairGenelines(Game game)
         {
         }
 
         /// <summary>
-        /// Enregistre la geneline pour une cave
+        /// Enregistre la geneline pour une cave via le portal ID
         /// </summary>
-        public void RegisterGeneline(int parentMapId, GenelineData geneline)
+        public void RegisterGeneline(int portalThingID, GenelineData geneline)
         {
-            activeGenelines[parentMapId] = geneline;
-            Log.Warning($"[InsectLairIncident] Geneline registered for map {parentMapId}: {geneline.defName} (Boss: {geneline.boss.defName})");
+            activeGenelines[portalThingID] = geneline;
+            Log.Warning($"[InsectLairIncident] Geneline registered for portal {portalThingID}: {geneline.defName} (Boss: {geneline.boss.defName})");
         }
 
         /// <summary>
-        /// Récupère la geneline pour une cave
-        /// Pour les pocket maps, retourne la première geneline active trouvée
+        /// Lie une pocket map à son portal
         /// </summary>
-        public GenelineData GetGeneline(Map map)
+        public void LinkPocketMapToPortal(int pocketMapId, int portalThingID)
         {
-            // Chercher d'abord par mapId exact
-            if (activeGenelines.TryGetValue(map.uniqueID, out GenelineData geneline))
+            pocketMapToPortal[pocketMapId] = portalThingID;
+        }
+
+        /// <summary>
+        /// Récupère la geneline pour une cave (via portal ID ou pocket map ID)
+        /// </summary>
+        public GenelineData GetGeneline(int portalThingID)
+        {
+            if (activeGenelines.TryGetValue(portalThingID, out GenelineData geneline))
             {
                 return geneline;
             }
+            return null;
+        }
 
-            // Si pas trouvé (pocket map), retourner n'importe quelle geneline active
-            // Car il ne devrait y avoir qu'une seule cave active à la fois
-            foreach (var kvp in activeGenelines)
+        /// <summary>
+        /// Récupère la geneline depuis une pocket map
+        /// </summary>
+        public GenelineData GetGenelineFromPocketMap(Map pocketMap)
+        {
+            if (pocketMapToPortal.TryGetValue(pocketMap.uniqueID, out int portalID))
             {
-                return kvp.Value;
+                return GetGeneline(portalID);
             }
-
             return null;
         }
 
         /// <summary>
         /// Supprime la geneline quand la cave est résolue
         /// </summary>
-        public void RemoveGeneline(int parentMapId)
+        public void RemoveGeneline(int portalThingID)
         {
-            activeGenelines.Remove(parentMapId);
+            activeGenelines.Remove(portalThingID);
+
+            // Nettoyer aussi le mapping pocket map
+            List<int> keysToRemove = new List<int>();
+            foreach (var kvp in pocketMapToPortal)
+            {
+                if (kvp.Value == portalThingID)
+                    keysToRemove.Add(kvp.Key);
+            }
+            foreach (int key in keysToRemove)
+            {
+                pocketMapToPortal.Remove(key);
+            }
         }
 
         public override void ExposeData()
         {
             base.ExposeData();
             Scribe_Collections.Look(ref activeGenelines, "activeGenelines", LookMode.Value, LookMode.Deep);
+            Scribe_Collections.Look(ref pocketMapToPortal, "pocketMapToPortal", LookMode.Value, LookMode.Value);
 
-            if (Scribe.mode == LoadSaveMode.PostLoadInit && activeGenelines == null)
+            if (Scribe.mode == LoadSaveMode.PostLoadInit)
             {
-                activeGenelines = new Dictionary<int, GenelineData>();
+                if (activeGenelines == null)
+                    activeGenelines = new Dictionary<int, GenelineData>();
+                if (pocketMapToPortal == null)
+                    pocketMapToPortal = new Dictionary<int, int>();
             }
         }
     }

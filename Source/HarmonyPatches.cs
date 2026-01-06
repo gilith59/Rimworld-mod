@@ -139,8 +139,10 @@ namespace InsectLairIncident
         public static void Prefix(Map map)
         {
             // Récupérer la geneline depuis le GameComponent global
+            // Utiliser le portal ID en cours de génération
             GameComponent_InsectLairGenelines globalComp = Current.Game.GetComponent<GameComponent_InsectLairGenelines>();
-            GenelineData geneline = globalComp?.GetGeneline(map);
+            int portalID = MapPortalLinkHelper.currentGeneratingPortalID;
+            GenelineData geneline = (portalID >= 0) ? globalComp?.GetGeneline(portalID) : null;
 
             if (geneline != null)
             {
@@ -158,6 +160,105 @@ namespace InsectLairIncident
             // Désactiver après génération
             PawnGenerator_GeneratePawn_Patch.SetInsectLairGeneration(false, null);
             // Log.Message("[InsectLairIncident] Deactivated geneline spawning");
+        }
+    }
+
+    /// <summary>
+    /// Patch pour lier la pocket map au portal AVANT sa génération
+    /// Permet à GenStep de trouver la geneline correcte
+    /// </summary>
+    [HarmonyPatch(typeof(MapPortal), "GeneratePocketMapInt")]
+    public static class MapPortal_GeneratePocketMapInt_Patch
+    {
+        public static void Prefix(MapPortal __instance)
+        {
+            // Vérifier si c'est un InsectLairEntrance
+            if (__instance.def.defName == "InsectLairEntrance")
+            {
+                // Le pocket map va être créé, lier dès maintenant au portal
+                GameComponent_InsectLairGenelines globalComp = Current.Game.GetComponent<GameComponent_InsectLairGenelines>();
+                if (globalComp != null)
+                {
+                    // Note: On ne peut pas obtenir l'ID de la pocket map ici car elle n'existe pas encore
+                    // On va stocker temporairement le portal ID pour que GenStep puisse le récupérer
+                    MapPortalLinkHelper.currentGeneratingPortalID = __instance.thingIDNumber;
+                    Log.Warning($"[InsectLairIncident] Portal {__instance.thingIDNumber} is generating pocket map");
+                }
+            }
+        }
+
+        public static void Postfix(MapPortal __instance, Map __result)
+        {
+            if (__instance.def.defName == "InsectLairEntrance" && __result != null)
+            {
+                // Maintenant on peut lier la pocket map créée au portal
+                GameComponent_InsectLairGenelines globalComp = Current.Game.GetComponent<GameComponent_InsectLairGenelines>();
+                if (globalComp != null)
+                {
+                    globalComp.LinkPocketMapToPortal(__result.uniqueID, __instance.thingIDNumber);
+                    Log.Warning($"[InsectLairIncident] Linked pocket map {__result.uniqueID} to portal {__instance.thingIDNumber}");
+                }
+                MapPortalLinkHelper.currentGeneratingPortalID = -1;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Helper pour passer le portal ID entre patches
+    /// </summary>
+    public static class MapPortalLinkHelper
+    {
+        public static int currentGeneratingPortalID = -1;
+    }
+
+    /// <summary>
+    /// Patch pour remplacer les Hives vanilla par des hives VFE spécifiques à la geneline
+    /// </summary>
+    [HarmonyPatch(typeof(Thing), nameof(Thing.SpawnSetup))]
+    public static class Thing_SpawnSetup_Patch
+    {
+        public static void Prefix(Thing __instance, Map map)
+        {
+            // Vérifier si c'est une Hive vanilla qui spawn dans une InsectLair pocket map
+            if (__instance.def.defName == "Hive" && map.Parent != null && map.Parent.def != null && map.Parent.def.defName == "InsectLair")
+            {
+                // Récupérer la geneline de cette pocket map
+                GameComponent_InsectLairGenelines globalComp = Current.Game.GetComponent<GameComponent_InsectLairGenelines>();
+                GenelineData geneline = globalComp?.GetGenelineFromPocketMap(map);
+
+                if (geneline != null && !geneline.isVanilla)
+                {
+                    // Remplacer le def par le hive VFE correspondant
+                    ThingDef vfeHive = GetVFEHiveForGeneline(geneline.defName);
+                    if (vfeHive != null)
+                    {
+                        __instance.def = vfeHive;
+                        Log.Message($"[InsectLairIncident] Replaced vanilla Hive with {vfeHive.defName} for geneline {geneline.defName}");
+                    }
+                }
+            }
+        }
+
+        private static ThingDef GetVFEHiveForGeneline(string genelineDefName)
+        {
+            // Map geneline -> VFE hive
+            string hiveDef = null;
+
+            if (genelineDefName == "VFEI_Nuchadus")
+                hiveDef = "VFEI2_NuchadusHive";
+            else if (genelineDefName == "VFEI_Chelis")
+                hiveDef = "VFEI2_ChelisHive";
+            else if (genelineDefName == "VFEI_Kemia")
+                hiveDef = "VFEI2_KemianHive";
+            else if (genelineDefName == "VFEI_Xanides")
+                hiveDef = "VFEI2_XanidesHive";
+            // VFEI_Sorne utilise Hive vanilla (pas de remplacement)
+
+            if (hiveDef != null)
+            {
+                return DefDatabase<ThingDef>.GetNamedSilentFail(hiveDef);
+            }
+            return null;
         }
     }
 }

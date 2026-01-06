@@ -15,8 +15,8 @@ namespace InsectLairIncident
         private bool firstWaveSpawned = false;
         private bool waitingForPortal = false;
 
-        // Production: 1 jour = 60000 ticks
-        private const int WAVE_INTERVAL_TICKS = 60000; // 1 jour de jeu
+        // TEST VERSION: 1 heure de jeu = 2500 ticks (PROD: 60000 = 1 jour)
+        private const int WAVE_INTERVAL_TICKS = 2500; // 1 heure IN-GAME
 
         private static readonly List<PawnKindDef> insectoidKinds = new List<PawnKindDef>();
 
@@ -38,13 +38,7 @@ namespace InsectLairIncident
             // Choisir une geneline aléatoire (VFE ou vanilla)
             this.chosenGeneline = GenelineHelper.ChooseRandomGeneline();
 
-            // Enregistrer globalement pour que la pocket map puisse y accéder
-            GameComponent_InsectLairGenelines globalComp = Current.Game.GetComponent<GameComponent_InsectLairGenelines>();
-            if (globalComp != null)
-            {
-                globalComp.RegisterGeneline(map.uniqueID, chosenGeneline);
-            }
-
+            // NOTE: On enregistrera la geneline quand le portal sera détecté (pour avoir son thingIDNumber)
             // Log.Message($"[InsectLairIncident] Geneline choisie: {chosenGeneline.defName} (Boss: {chosenGeneline.boss.defName})");
         }
 
@@ -57,6 +51,13 @@ namespace InsectLairIncident
         // Appelé quand le portal est détecté
         private void OnPortalDetected(InsectLairEntrance portal)
         {
+            // Enregistrer globalement avec le portal ID
+            GameComponent_InsectLairGenelines globalComp = Current.Game.GetComponent<GameComponent_InsectLairGenelines>();
+            if (globalComp != null)
+            {
+                globalComp.RegisterGeneline(portal.thingIDNumber, chosenGeneline);
+            }
+
             this.portalToSpawnFrom = portal;
             this.waitingForPortal = false;
             this.ticksUntilNextWave = 60; // 1 seconde avant la première vague
@@ -86,6 +87,16 @@ namespace InsectLairIncident
             // Si le portal est détruit ou n'existe pas, arrêter
             if (portalToSpawnFrom == null || portalToSpawnFrom.Destroyed)
                 return;
+
+            // NOUVEAU: Vérifier si le boss est mort
+            if (portalToSpawnFrom.PocketMap != null)
+            {
+                MapComponent_HiveQueenTracker tracker = portalToSpawnFrom.PocketMap.GetComponent<MapComponent_HiveQueenTracker>();
+                if (tracker != null && tracker.IsBossDead())
+                {
+                    return; // Boss mort = plus de vagues!
+                }
+            }
 
             ticksUntilNextWave--;
 

@@ -11,7 +11,7 @@ namespace InsectLairIncident
         private Pawn queen;
         private bool queenDead = false;
         private int ticksUntilAutoCollapse = -1;
-        private const int AUTO_COLLAPSE_DELAY = 180000; // 72h in-game (72 * 2500 ticks)
+        private const int AUTO_COLLAPSE_DELAY = 15000; // 6 heures in-game (TEST VERSION - prod: 180000 = 72h)
         private bool discoveryMessageShown = false;
         private Map parentMap; // La map de la colonie (surface)
 
@@ -64,7 +64,7 @@ namespace InsectLairIncident
                 string bossName = queen.kindDef.LabelCap;
                 Find.LetterStack.ReceiveLetter(
                     "Boss Defeated!",
-                    $"The {bossName} has been defeated! The insect lair will automatically collapse in 72 hours.",
+                    $"The {bossName} has been defeated! The insect lair will automatically collapse in 5 seconds. [TEST VERSION]",
                     LetterDefOf.PositiveEvent,
                     new LookTargets(queen)
                 );
@@ -76,6 +76,11 @@ namespace InsectLairIncident
 
             return false;
         }
+
+        // Aliases publics pour l'Alert et autres composants
+        public bool IsBossDead() => IsQueenDead();
+
+        public int GetTicksUntilCollapse() => ticksUntilAutoCollapse;
 
         public override void MapComponentTick()
         {
