@@ -4,7 +4,7 @@ Welcome to my collection of RimWorld mods! Each mod is organized in its own bran
 
 ## 📦 Available Mods
 
-### 🐛 [Insect Lair Incident](../../tree/mod/insect-lair-incident) - v2.0
+### 🐛 [Insect Lair Incident](../../tree/mod/insect-lair-incident) - v2.3.0
 **Branch:** `mod/insect-lair-incident`
 
 Transform the Odyssey InsectLair into a dangerous random incident that spawns on your colony map!
@@ -13,7 +13,10 @@ Transform the Odyssey InsectLair into a dangerous random incident that spawns on
 - Progressive emergence (8-16 hours warning)
 - Daily insectoid waves scaling with wealth
 - VFE Insectoids 2 integration (one geneline per incident)
+- VFE geneline-specific hives (Nuchadus Hive, Chelis Hive, etc.)
 - Unique boss fights per geneline
+- Collapse countdown timer (72h after boss death)
+- Multi-lair support
 - Full vanilla cave exploration
 
 **Requirements:** RimWorld 1.6, Odyssey DLC
@@ -43,9 +46,16 @@ A Sanguophage variant that drinks beer instead of blood! Complete xenotype with 
 
 ## 🌿 Branch Structure
 
-Each mod has its own branch:
-- `mod/insect-lair-incident` - Insect Lair Incident mod
-- `mod/[mod-name]` - Future mods
+- **`main`** - Repository documentation and workspace guides
+- **`mod/insect-lair-incident`** - Insect Lair Incident mod
+- **`mod/beerophage`** - Beerophage mod
+
+## 📚 Documentation
+
+See the [docs/](docs/) folder for:
+- **[MASTER_GUIDE.md](docs/MASTER_GUIDE.md)** - Complete RimWorld modding guide
+- **[Session Notes](docs/archives/sessions/)** - Development session logs
+- **[ORGANISATION_WORKSPACE.md](ORGANISATION_WORKSPACE.md)** - Workspace structure
 
 ## 🐛 Bug Reports
 
