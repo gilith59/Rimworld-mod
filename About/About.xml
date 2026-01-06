@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+	<name>Decadents</name>
+	<author>gilith59</author>
+	<supportedVersions>
+		<li>1.5</li>
+		<li>1.6</li>
+	</supportedVersions>
+	<packageId>gilith.decadents</packageId>
+	<modVersion>1.0.0</modVersion>
+	<description>Introducing Decadents, three drug-dependent xenotypes that must consume specific substances to survive. Each xenotype has unique mechanics, specialized rest chambers, and connectable buildings that grant permanent bonuses.
+
+🍺 Le Festoyeur (The Reveler)
+A beer-loving barbarian warrior who thrives on alcohol and close combat. Uses a Beer Casket for rest and can connect Beer Amplifiers and Ambrosia Infusers for permanent stat bonuses.
+
+💉 Le Baron (The Baron)
+A high-speed stimulant addict with enhanced consciousness and movement. Uses a Stim Casket and connects Wake-up Injectors, Go-juice Pumps, Flake Dispensers, and Yayo Refiners for combat and work bonuses.
+
+🌿 Le Rêveur (The Dreamer)
+A mystical psychedelic user with enhanced psychic abilities and social skills. Uses a Dream Casket and connects Smokeleaf Vaporizers and Psychite Diffusers for peaceful and intellectual bonuses.
+
+Key Features:
+- Three unique xenotypes with custom resource systems (Beergen, Stimgen, Dreamgen)
+- Specialized rest caskets that consume drugs to restore resources
+- Connectable buildings that apply permanent hediff bonuses
+- Unique gene combinations for each playstyle
+- Full drug tolerance and no addiction to their respective substances
+- Inspired by Sanguophage deathrest mechanics
+
+Transform your colony with these substance-dependent beings and master the art of drug production to keep your Decadents thriving!
+
+Requires: Biotech DLC</description>
+	<modDependencies>
+		<li>
+			<packageId>Ludeon.RimWorld.Biotech</packageId>
+			<displayName>Biotech</displayName>
+		</li>
+	</modDependencies>
+	<loadAfter>
+		<li>Ludeon.RimWorld</li>
+		<li>Ludeon.RimWorld.Royalty</li>
+		<li>Ludeon.RimWorld.Ideology</li>
+		<li>Ludeon.RimWorld.Biotech</li>
+	</loadAfter>
+</ModMetaData>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <ThingDef ParentName="BuildingBase">
+    <defName>BeerMeditationChamber</defName>
+    <label>beer meditation chamber</label>
+    <description>[DEV VERSION] A sophisticated meditation chamber designed for deep alcoholic enlightenment. Beerophages can enter a 1-hour meditation state within this chamber, achieving the legendary "poing ivre" mastery through continuous beer-fueled meditation. The chamber requires constant beer supply and significant power to maintain the meditation environment.\n\nRight-click to enter meditation. Interrupting the meditation cycle results in severe withdrawal effects.</description>
+    <thingClass>Decadents.Building_BeerMeditationChamber</thingClass>
+    <tickerType>Normal</tickerType>
+    <fillPercent>0.4</fillPercent>
+    <pathCost>42</pathCost>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <canOverlapZones>false</canOverlapZones>
+    <passability>PassThroughOnly</passability>
+    <defaultPlacingRot>South</defaultPlacingRot>
+    <graphicData>
+      <texPath>Things/Building/Misc/DeathrestCasket/Draincasket</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <drawSize>(3,2)</drawSize>
+    </graphicData>
+    <building>
+      <buildingTags>
+        <li>Beerophage</li>
+        <li>Meditation</li>
+      </buildingTags>
+      <ai_chillDestination>false</ai_chillDestination>
+    </building>
+    <hasInteractionCell>true</hasInteractionCell>
+    <interactionCellOffset>(0,0,-1)</interactionCellOffset>
+    <designationCategory>Beerophage</designationCategory>
+    <uiOrder>2010</uiOrder>
+    <statBases>
+      <MaxHitPoints>300</MaxHitPoints>
+      <WorkToBuild>5000</WorkToBuild>
+      <Mass>100</Mass>
+      <Flammability>0.3</Flammability>
+      <Beauty>5</Beauty>
+      <BedRestEffectiveness>1.0</BedRestEffectiveness>
+      <Comfort>1.0</Comfort>
+      <ImmunityGainSpeedFactor>1.1</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+    </statBases>
+    <size>(1,2)</size>
+    <costList>
+      <Steel>200</Steel>
+      <Gold>50</Gold>
+      <ComponentIndustrial>8</ComponentIndustrial>
+      <ComponentSpacer>2</ComponentSpacer>
+      <Beer>25</Beer>
+    </costList>
+    <comps>
+      <li Class="CompProperties_Power">
+        <compClass>CompPowerTrader</compClass>
+        <basePowerConsumption>200</basePowerConsumption>
+        <idlePowerDraw>50</idlePowerDraw>
+        <alwaysDisplayAsUsingPower>true</alwaysDisplayAsUsingPower>
+      </li>
+      <li Class="CompProperties_Flickable"/>
+      <li Class="CompProperties_Refuelable">
+        <fuelConsumptionRate>1.0</fuelConsumptionRate>
+        <fuelCapacity>50</fuelCapacity>
+        <fuelLabel>Beer</fuelLabel>
+        <fuelFilter>
+          <thingDefs>
+            <li>Beer</li>
+          </thingDefs>
+        </fuelFilter>
+        <initialFuelPercent>0.5</initialFuelPercent>
+        <showAllowAutoRefuelToggle>true</showAllowAutoRefuelToggle>
+        <externalTicking>true</externalTicking>
+        <autoRefuelPercent>0.2</autoRefuelPercent>
+        <consumeFuelOnlyWhenUsed>true</consumeFuelOnlyWhenUsed>
+      </li>
+    </comps>
+    <researchPrerequisites>
+      <li>BeerMeditationTechnology</li>
+    </researchPrerequisites>
+  </ThingDef>
+
+</Defs>

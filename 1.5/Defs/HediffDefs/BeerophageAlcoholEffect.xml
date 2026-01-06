@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Positive-only alcohol effect for beerophages -->
+  <HediffDef>
+    <defName>BeerophageAlcoholEffect</defName>
+    <label>alcohol euphoria</label>
+    <description>This beerophage is experiencing the pure euphoric effects of alcohol without any of the negative side effects. Their enhanced physiology filters out the toxins while amplifying the positive aspects.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.8, 0.8, 0.2)</defaultLabelColor>
+    <scenarioCanAdd>true</scenarioCanAdd>
+    <maxSeverity>1.0</maxSeverity>
+    <isBad>false</isBad>
+    <comps>
+      <li Class="HediffCompProperties_SeverityPerDay">
+        <severityPerDay>-0.75</severityPerDay>
+        <showHoursToRecover>true</showHoursToRecover>
+      </li>
+    </comps>
+    <stages>
+      <li>
+        <minSeverity>0.25</minSeverity>
+        <label>warm</label>
+        <becomeVisible>false</becomeVisible>
+        <statOffsets>
+          <SocialImpact>0.05</SocialImpact>
+        </statOffsets>
+      </li>
+      <li>
+        <minSeverity>0.4</minSeverity>
+        <label>tipsy</label>
+        <becomeVisible>true</becomeVisible>
+        <statOffsets>
+          <SocialImpact>0.1</SocialImpact>
+          <NegotiationAbility>0.05</NegotiationAbility>
+          <WorkSpeedGlobal>0.05</WorkSpeedGlobal>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>0.05</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>0.7</minSeverity>
+        <label>drunk</label>
+        <becomeVisible>true</becomeVisible>
+        <statOffsets>
+          <SocialImpact>0.2</SocialImpact>
+          <NegotiationAbility>0.1</NegotiationAbility>
+          <WorkSpeedGlobal>0.1</WorkSpeedGlobal>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>0.1</offset>
+          </li>
+        </capMods>
+      </li>
+      <li>
+        <minSeverity>1.0</minSeverity>
+        <label>hammered</label>
+        <becomeVisible>true</becomeVisible>
+        <statOffsets>
+          <SocialImpact>0.3</SocialImpact>
+          <NegotiationAbility>0.15</NegotiationAbility>
+          <WorkSpeedGlobal>0.15</WorkSpeedGlobal>
+        </statOffsets>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <offset>0.15</offset>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <offset>0.1</offset>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- Alcohol craving hediff for periodic drinking need -->
+  <HediffDef>
+    <defName>BeerophageAlcoholCraving</defName>
+    <label>alcohol craving</label>
+    <description>This beerophage is craving alcohol. Even though their beergen levels are fine, they have a psychological and physiological need for the taste and ritual of drinking. They will feel sad until they satisfy this craving.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.7, 0.3, 0.3)</defaultLabelColor>
+    <isBad>true</isBad>
+    <makesSickThought>false</makesSickThought>
+    <stages>
+      <li>
+        <label>mild craving</label>
+        <becomeVisible>true</becomeVisible>
+        <statOffsets>
+          <MentalBreakThreshold>0.05</MentalBreakThreshold>
+        </statOffsets>
+      </li>
+    </stages>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>300000</disappearsAfterTicks>
+        <showRemainingTime>true</showRemainingTime>
+      </li>
+    </comps>
+  </HediffDef>
+
+</Defs>

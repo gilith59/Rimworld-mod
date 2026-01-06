@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <DesignationCategoryDef>
+    <defName>Beerophage</defName>
+    <label>beerophage</label>
+    <description>Buildings and furniture specifically designed for beerophages.</description>
+    <order>99</order>
+    <specialDesignatorClasses>
+      <li>Designator_Cancel</li>
+      <li>Designator_Deconstruct</li>
+      <li>Designator_Uninstall</li>
+    </specialDesignatorClasses>
+  </DesignationCategoryDef>
+
+</Defs>

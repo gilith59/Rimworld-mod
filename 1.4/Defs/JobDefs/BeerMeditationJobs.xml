@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <JobDef>
+    <defName>EnterBeerMeditation</defName>
+    <driverClass>Decadents.JobDriver_EnterBeerMeditation</driverClass>
+    <reportString>entering beer meditation.</reportString>
+    <joyDuration>4000</joyDuration>
+    <joyGainRate>1</joyGainRate>
+    <joyMaxParticipants>1</joyMaxParticipants>
+  </JobDef>
+
+  <JobDef>
+    <defName>ExitBeerMeditation</defName>
+    <driverClass>Decadents.JobDriver_ExitBeerMeditation</driverClass>
+    <reportString>exiting beer meditation.</reportString>
+    <joyDuration>1000</joyDuration>
+    <joyGainRate>1</joyGainRate>
+    <joyMaxParticipants>1</joyMaxParticipants>
+  </JobDef>
+
+</Defs>

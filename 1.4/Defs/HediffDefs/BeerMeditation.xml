@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+  <!-- Beer Meditation State -->
+  <HediffDef>
+    <defName>BeerMeditation</defName>
+    <label>beer meditation</label>
+    <description>This person is in a deep alcoholic meditation trance, working towards achieving the legendary "poing ivre" mastery. They are completely unconscious and vulnerable during this state.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.7, 0.4, 0.1)</defaultLabelColor>
+    <isBad>false</isBad>
+    <makesSickThought>false</makesSickThought>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <chronic>true</chronic>
+    <blocksSleeping>false</blocksSleeping>
+    <stages>
+      <li>
+        <label>deep meditation</label>
+        <becomeVisible>true</becomeVisible>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <setMax>0.1</setMax>
+          </li>
+        </capMods>
+        <hediffGivers>
+          <li Class="HediffGiver_Random">
+            <hediff>BeerMeditationProgress</hediff>
+            <mtbDays>1</mtbDays>
+          </li>
+        </hediffGivers>
+      </li>
+    </stages>
+  </HediffDef>
+
+  <!-- Interrupted Beer Meditation Malus -->
+  <HediffDef>
+    <defName>InterruptedBeerMeditation</defName>
+    <label>interrupted beer meditation</label>
+    <description>This person's beer meditation was interrupted before completion, causing severe withdrawal and spiritual disruption. The body and mind suffer from the incomplete enlightenment process.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.8, 0.2, 0.2)</defaultLabelColor>
+    <isBad>true</isBad>
+    <makesSickThought>true</makesSickThought>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <initialSeverity>1.0</initialSeverity>
+    <maxSeverity>1.0</maxSeverity>
+    <stages>
+      <li>
+        <minSeverity>0</minSeverity>
+        <label>spiritually disrupted</label>
+        <becomeVisible>true</becomeVisible>
+        <capMods>
+          <li>
+            <capacity>Consciousness</capacity>
+            <postFactor>0.7</postFactor>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <postFactor>0.8</postFactor>
+          </li>
+          <li>
+            <capacity>Manipulation</capacity>
+            <postFactor>0.8</postFactor>
+          </li>
+        </capMods>
+        <statOffsets>
+          <MentalBreakThreshold>0.2</MentalBreakThreshold>
+          <GlobalLearningFactor>-0.5</GlobalLearningFactor>
+        </statOffsets>
+      </li>
+    </stages>
+    <comps>
+      <li Class="HediffCompProperties_Disappears">
+        <disappearsAfterTicks>300000</disappearsAfterTicks>
+      </li>
+    </comps>
+  </HediffDef>
+
+  <!-- Progress Tracking Hediff (Hidden) -->
+  <HediffDef>
+    <defName>BeerMeditationProgress</defName>
+    <label>meditation progress</label>
+    <description>Tracks the progress of beer meditation.</description>
+    <hediffClass>HediffWithComps</hediffClass>
+    <defaultLabelColor>(0.5, 0.5, 0.5)</defaultLabelColor>
+    <isBad>false</isBad>
+    <makesSickThought>false</makesSickThought>
+    <tendable>false</tendable>
+    <everCurableByItem>false</everCurableByItem>
+    <chronic>true</chronic>
+    <stages>
+      <li>
+        <becomeVisible>false</becomeVisible>
+      </li>
+    </stages>
+  </HediffDef>
+
+</Defs>
