@@ -12,8 +12,7 @@
     <baseChance>0.75</baseChance>
 
     <!-- Production settings - comme PitGate -->
-    <minPopulation>4</minPopulation>
-    <earliestDay>30</earliestDay>
+    <earliestDay>60</earliestDay>
     <minRefireDays>45</minRefireDays>
 
     <pointsScaleable>true</pointsScaleable>
