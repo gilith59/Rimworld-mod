@@ -17,9 +17,7 @@ namespace LootScrap
         {
             Harmony harmony = new Harmony("gilith.lootscrap");
 
-            Log.Message("[LootScrap] Initializing Harmony patches...");
-
-            // Patch Pawn.Kill to strip equipment when pawns die (using LootingManager's exact syntax)
+            // Patch Pawn.Kill to strip equipment when pawns die
             var killMethod = AccessTools.Method(typeof(Pawn), "Kill", (Type[])null, (Type[])null);
             if (killMethod != null)
             {
@@ -27,7 +25,6 @@ namespace LootScrap
                     killMethod,
                     postfix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(Kill_Postfix)))
                 );
-                Log.Message("[LootScrap] Successfully patched Pawn.Kill");
             }
             else
             {
@@ -53,7 +50,6 @@ namespace LootScrap
                     tryDropMethod1,
                     postfix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(TryDrop_Postfix)))
                 );
-                Log.Message("[LootScrap] Successfully patched ThingOwner.TryDrop (8 params v1)");
             }
 
             var tryDropMethod2 = AccessTools.Method(typeof(ThingOwner), "TryDrop", new Type[]
@@ -74,10 +70,7 @@ namespace LootScrap
                     tryDropMethod2,
                     postfix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(TryDrop_Postfix)))
                 );
-                Log.Message("[LootScrap] Successfully patched ThingOwner.TryDrop (8 params v2)");
             }
-
-            Log.Message("[LootScrap] Harmony initialization complete!");
         }
 
         public static void Kill_Postfix(Pawn __instance)
@@ -109,8 +102,6 @@ namespace LootScrap
                 // Mark pawn as being processed and force equipment/apparel to drop
                 if (__instance.MapHeld != null)
                 {
-                    Log.Message($"[LootScrap] Stripping pawn {__instance.LabelShort}");
-
                     // Register pawn for batch processing
                     pawnsBeingProcessed.Add(__instance);
                     ScrapUtility.InitializePawnBatch(__instance);
@@ -191,7 +182,6 @@ namespace LootScrap
                     return;
 
                 // Add to pawn's batch for later processing
-                Log.Message($"[LootScrap] Queueing {thing.def.defName} from {pawn.LabelShort} (value: {thing.GetStatValue(StatDefOf.MarketValue)} silver)");
                 ScrapUtility.AddItemToBatch(pawn, thing);
             }
             catch (Exception ex)

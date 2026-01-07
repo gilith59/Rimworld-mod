@@ -17,7 +17,7 @@ namespace LootScrap
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
-            Rect viewRect = new Rect(0f, 0f, inRect.width - 30f, 1200f);
+            Rect viewRect = new Rect(0f, 0f, inRect.width - 30f, 1400f);
             Widgets.BeginScrollView(inRect, ref scrollPosition, viewRect);
 
             Listing_Standard listingStandard = new Listing_Standard();
@@ -119,7 +119,7 @@ namespace LootScrap
             settings.glitterworldUraniumYield = (int)listingStandard.Slider(settings.glitterworldUraniumYield, 0f, 20f);
 
             listingStandard.Label($"Advanced Components: {settings.glitterworldAdvancedComponentYield}");
-            settings.glitterworldAdvancedComponentYield = (int)listingStandard.Slider(settings.glitterworldAdvancedComponentYield, 0f, 5f);
+            settings.glitterworldAdvancedComponentYield = (int)listingStandard.Slider(settings.glitterworldAdvancedComponentYield, 0f, 10f);
 
             listingStandard.Gap(20f);
 
@@ -128,6 +128,9 @@ namespace LootScrap
             {
                 settings = new LootScrapSettings();
             }
+
+            listingStandard.Gap(20f);
+            listingStandard.Label("<i>End of settings - All sliders are visible above</i>");
 
             listingStandard.End();
             Widgets.EndScrollView();

@@ -20,7 +20,6 @@ namespace LootScrap
             if (!pawnBatches.ContainsKey(pawn))
             {
                 pawnBatches[pawn] = new List<Thing>();
-                Log.Message($"[LootScrap] Initialized batch for {pawn.LabelShort}");
             }
         }
 
@@ -43,7 +42,6 @@ namespace LootScrap
         {
             if (!pawnBatches.ContainsKey(pawn))
             {
-                Log.Warning($"[LootScrap] No batch found for {pawn.LabelShort}");
                 return;
             }
 
@@ -52,11 +50,8 @@ namespace LootScrap
 
             if (items.Count == 0)
             {
-                Log.Message($"[LootScrap] No items to convert for {pawn.LabelShort}");
                 return;
             }
-
-            Log.Message($"[LootScrap] Finalizing batch: {items.Count} items from {pawn.LabelShort}");
 
             // Convert all items as a batch
             ConvertBatchToScrap(items, pawn.PositionHeld, pawn.MapHeld);
@@ -172,23 +167,7 @@ namespace LootScrap
 
                 itemValue *= item.stackCount;
                 totalValue += itemValue;
-
-                string debugInfo = $"{item.def.defName}: {itemValue} silver (base: {baseValue}";
-                if (item is ThingWithComps twc2)
-                {
-                    var qc = twc2.TryGetComp<CompQuality>();
-                    if (qc != null)
-                        debugInfo += $", quality: {qc.Quality}";
-
-                    var bc = twc2.TryGetComp<CompBiocodable>();
-                    if (bc != null && bc.Biocoded)
-                        debugInfo += ", BIOCODED";
-                }
-                debugInfo += $")";
-                Log.Message($"[LootScrap]   - {debugInfo}");
             }
-
-            Log.Message($"[LootScrap] *** HOT RELOAD TEST *** Total value: {totalValue} silver from {items.Count} items");
 
             // Greedy algorithm on TOTAL value
             Dictionary<ThingDef, int> scrapCounts = new Dictionary<ThingDef, int>();
@@ -233,12 +212,8 @@ namespace LootScrap
                 if (count > 0)
                 {
                     scrapCounts[scrapDef] = count;
-                    Log.Message($"[LootScrap] Converting to {count}x {scrapDef.defName} (cost: {scrapCost} each)");
                 }
             }
-
-            Log.Message($"[LootScrap] Remaining value: {remainingValue} silver (lost)");
-            Log.Message($"[LootScrap] Total scraps to spawn: {totalScraps}");
 
             // Destroy ALL items in the batch
             foreach (Thing item in items)
@@ -257,8 +232,6 @@ namespace LootScrap
 
                 // Use TryPlaceThing to automatically merge with existing stacks
                 GenPlace.TryPlaceThing(scrap, position, map, ThingPlaceMode.Near);
-
-                Log.Message($"[LootScrap] Spawned {kvp.Value}x {kvp.Key.defName} at {position}");
             }
         }
 
