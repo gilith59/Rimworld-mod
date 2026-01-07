@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Base Scrap Definition -->
+  <ThingDef Name="ScrapBase" Abstract="True">
+    <thingClass>ThingWithComps</thingClass>
+    <category>Item</category>
+    <drawerType>MapMeshOnly</drawerType>
+    <resourceReadoutPriority>Middle</resourceReadoutPriority>
+    <useHitPoints>true</useHitPoints>
+    <selectable>true</selectable>
+    <altitudeLayer>Item</altitudeLayer>
+    <stackLimit>75</stackLimit>
+    <comps>
+      <li Class="CompProperties_Forbiddable"/>
+    </comps>
+    <alwaysHaulable>true</alwaysHaulable>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <rotatable>false</rotatable>
+    <pathCost>14</pathCost>
+    <statBases>
+      <MaxHitPoints>100</MaxHitPoints>
+      <MarketValue>0</MarketValue>
+      <Mass>0.5</Mass>
+      <Flammability>0.2</Flammability>
+      <DeteriorationRate>2</DeteriorationRate>
+    </statBases>
+    <thingCategories>
+      <li>ResourcesRaw</li>
+    </thingCategories>
+  </ThingDef>
+
+  <!-- Junk Scrap -->
+  <ThingDef ParentName="ScrapBase">
+    <defName>LootScrap_Junk</defName>
+    <label>junk scrap</label>
+    <description>Twisted metal and broken components from destroyed low-quality equipment. Can be smelted down for basic steel.\n\nThis scrap came from cheap, worn-out gear that wasn't worth keeping intact.</description>
+    <graphicData>
+      <texPath>Things/AncientJunk/AncientGenetronChunk/AncientGenetronChunkA</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(120,100,80)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>1.5</MarketValue>
+      <Mass>0.4</Mass>
+    </statBases>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Metal_Drop</soundDrop>
+  </ThingDef>
+
+  <!-- Good Quality Scrap -->
+  <ThingDef ParentName="ScrapBase">
+    <defName>LootScrap_Good</defName>
+    <label>good quality scrap</label>
+    <description>Salvageable materials from decent equipment. Contains usable steel and occasionally intact components.\n\nThis scrap came from standard military-grade equipment.</description>
+    <graphicData>
+      <texPath>Things/AncientJunk/AncientGenetronChunk/AncientGenetronChunkB</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(140,140,120)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>5</MarketValue>
+      <Mass>0.6</Mass>
+    </statBases>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Metal_Drop</soundDrop>
+  </ThingDef>
+
+  <!-- High Quality Scrap -->
+  <ThingDef ParentName="ScrapBase">
+    <defName>LootScrap_High</defName>
+    <label>high quality scrap</label>
+    <description>Advanced materials from high-quality equipment. Contains plasteel alloys and salvageable components.\n\nThis scrap came from expensive, well-crafted gear designed for professional soldiers.</description>
+    <graphicData>
+      <texPath>Things/AncientJunk/AncientGenetronChunk/AncientGenetronChunkE</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(180,180,180)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>15</MarketValue>
+      <Mass>0.8</Mass>
+    </statBases>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Metal_Drop</soundDrop>
+  </ThingDef>
+
+  <!-- Glitterworld Quality Scrap -->
+  <ThingDef ParentName="ScrapBase">
+    <defName>LootScrap_Glitterworld</defName>
+    <label>glitterworld scrap</label>
+    <description>Exotic materials from ultra-tech equipment. Contains plasteel, uranium, and advanced components that survived destruction.\n\nThis scrap came from glitterworld-quality equipment, the finest gear money can buy.</description>
+    <graphicData>
+      <texPath>Things/AncientJunk/AncientGenetronChunk/AncientGenetronChunkF</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <color>(220,200,255)</color>
+    </graphicData>
+    <statBases>
+      <MarketValue>40</MarketValue>
+      <Mass>1.0</Mass>
+    </statBases>
+    <soundInteract>Metal_Drop</soundInteract>
+    <soundDrop>Metal_Drop</soundDrop>
+  </ThingDef>
+
+</Defs>

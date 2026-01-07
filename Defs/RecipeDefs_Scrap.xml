@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ========== SMELTING RECIPES (Electric Smelter) ========== -->
+
+  <RecipeDef>
+    <defName>SmeltJunkScrap</defName>
+    <label>smelt junk scrap</label>
+    <description>Smelt junk scrap to recover steel.</description>
+    <jobString>Smelting junk scrap.</jobString>
+    <workSpeedStat>SmeltingSpeed</workSpeedStat>
+    <effectWorking>Smelt</effectWorking>
+    <soundWorking>Recipe_Smelt</soundWorking>
+    <workAmount>400</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>LootScrap_Junk</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <products>
+      <Steel>15</Steel>
+    </products>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>LootScrap_Junk</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <recipeUsers>
+      <li>ElectricSmelter</li>
+    </recipeUsers>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>SmeltGoodScrap</defName>
+    <label>smelt good scrap</label>
+    <description>Smelt good scrap to recover steel.</description>
+    <jobString>Smelting good scrap.</jobString>
+    <workSpeedStat>SmeltingSpeed</workSpeedStat>
+    <effectWorking>Smelt</effectWorking>
+    <soundWorking>Recipe_Smelt</soundWorking>
+    <workAmount>600</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>LootScrap_Good</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <products>
+      <Steel>35</Steel>
+    </products>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>LootScrap_Good</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <recipeUsers>
+      <li>ElectricSmelter</li>
+    </recipeUsers>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>SmeltHighScrap</defName>
+    <label>smelt high scrap</label>
+    <description>Smelt high scrap to recover plasteel and steel.</description>
+    <jobString>Smelting high scrap.</jobString>
+    <workSpeedStat>SmeltingSpeed</workSpeedStat>
+    <effectWorking>Smelt</effectWorking>
+    <soundWorking>Recipe_Smelt</soundWorking>
+    <workAmount>800</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>LootScrap_High</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <products>
+      <Plasteel>15</Plasteel>
+      <Steel>35</Steel>
+    </products>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>LootScrap_High</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <recipeUsers>
+      <li>ElectricSmelter</li>
+    </recipeUsers>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>SmeltGlitterworldScrap</defName>
+    <label>smelt glitterworld scrap</label>
+    <description>Smelt glitterworld scrap to recover plasteel, gold, and uranium.</description>
+    <jobString>Smelting glitterworld scrap.</jobString>
+    <workSpeedStat>SmeltingSpeed</workSpeedStat>
+    <effectWorking>Smelt</effectWorking>
+    <soundWorking>Recipe_Smelt</soundWorking>
+    <workAmount>1000</workAmount>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>LootScrap_Glitterworld</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <products>
+      <Plasteel>25</Plasteel>
+      <Gold>5</Gold>
+      <Uranium>5</Uranium>
+    </products>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>LootScrap_Glitterworld</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <recipeUsers>
+      <li>ElectricSmelter</li>
+    </recipeUsers>
+  </RecipeDef>
+
+  <!-- ========== DISMANTLING RECIPES (Smithy / Machining Table) ========== -->
+
+  <RecipeDef>
+    <defName>DismantleJunkScrap</defName>
+    <label>dismantle junk scrap</label>
+    <description>Dismantle junk scrap to recover steel.</description>
+    <jobString>Dismantling junk scrap.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>Repair</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <workAmount>300</workAmount>
+    <skillRequirements>
+      <Crafting>3</Crafting>
+    </skillRequirements>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>LootScrap_Junk</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <products>
+      <Steel>10</Steel>
+    </products>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>LootScrap_Junk</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <recipeUsers>
+      <li>ElectricSmithy</li>
+      <li>FueledSmithy</li>
+      <li>TableMachining</li>
+    </recipeUsers>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>DismantleGoodScrap</defName>
+    <label>dismantle good scrap</label>
+    <description>Dismantle good scrap to recover a component and steel.</description>
+    <jobString>Dismantling good scrap.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>Repair</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <workAmount>500</workAmount>
+    <skillRequirements>
+      <Crafting>4</Crafting>
+    </skillRequirements>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>LootScrap_Good</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <products>
+      <ComponentIndustrial>1</ComponentIndustrial>
+      <Steel>10</Steel>
+    </products>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>LootScrap_Good</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <recipeUsers>
+      <li>ElectricSmithy</li>
+      <li>FueledSmithy</li>
+      <li>TableMachining</li>
+    </recipeUsers>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>DismantleHighScrap</defName>
+    <label>dismantle high scrap</label>
+    <description>Dismantle high scrap to recover components and plasteel.</description>
+    <jobString>Dismantling high scrap.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>Repair</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <workAmount>700</workAmount>
+    <skillRequirements>
+      <Crafting>6</Crafting>
+    </skillRequirements>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>LootScrap_High</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <products>
+      <ComponentIndustrial>2</ComponentIndustrial>
+      <Plasteel>5</Plasteel>
+    </products>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>LootScrap_High</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <recipeUsers>
+      <li>ElectricSmithy</li>
+      <li>FueledSmithy</li>
+      <li>TableMachining</li>
+    </recipeUsers>
+  </RecipeDef>
+
+  <RecipeDef>
+    <defName>DismantleGlitterworldScrap</defName>
+    <label>dismantle glitterworld scrap</label>
+    <description>Dismantle glitterworld scrap to recover an advanced component, plasteel, gold, and uranium.</description>
+    <jobString>Dismantling glitterworld scrap.</jobString>
+    <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
+    <effectWorking>Repair</effectWorking>
+    <soundWorking>Recipe_Machining</soundWorking>
+    <workAmount>1000</workAmount>
+    <skillRequirements>
+      <Crafting>8</Crafting>
+    </skillRequirements>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs>
+            <li>LootScrap_Glitterworld</li>
+          </thingDefs>
+        </filter>
+        <count>1</count>
+      </li>
+    </ingredients>
+    <products>
+      <ComponentSpacer>1</ComponentSpacer>
+      <Plasteel>10</Plasteel>
+      <Gold>1</Gold>
+      <Uranium>1</Uranium>
+    </products>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>LootScrap_Glitterworld</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <recipeUsers>
+      <li>ElectricSmithy</li>
+      <li>FueledSmithy</li>
+      <li>TableMachining</li>
+    </recipeUsers>
+  </RecipeDef>
+
+</Defs>
