@@ -31,6 +31,20 @@ namespace LootScrap
                 Log.Error("[LootScrap] Failed to find Pawn.Kill!");
             }
 
+            // Patch Pawn.Strip to handle downed/prisoner stripping
+            var stripMethod = AccessTools.Method(typeof(Pawn), "Strip", new Type[] { typeof(bool) });
+            if (stripMethod != null)
+            {
+                harmony.Patch(
+                    stripMethod,
+                    prefix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(Strip_Prefix)))
+                );
+            }
+            else
+            {
+                Log.Error("[LootScrap] Failed to find Pawn.Strip!");
+            }
+
             // Patch ThingOwner.TryDrop to intercept equipment drops
             var tryDropMethod1 = AccessTools.Method(typeof(ThingOwner), "TryDrop", new Type[]
             {
@@ -70,6 +84,73 @@ namespace LootScrap
                     tryDropMethod2,
                     postfix: new HarmonyMethod(typeof(HarmonyPatches).GetMethod(nameof(TryDrop_Postfix)))
                 );
+            }
+        }
+
+        public static void Strip_Prefix(Pawn __instance)
+        {
+            try
+            {
+                if (__instance == null)
+                    return;
+
+                var settings = LoadedModManager.GetMod<LootScrapMod>().GetSettings<LootScrapSettings>();
+                if (!settings.enableScrapSystem)
+                    return;
+
+                // Only process humanlike pawns
+                if (!__instance.RaceProps.Humanlike)
+                    return;
+
+                // Don't process dead pawns (handled by Kill_Postfix)
+                if (__instance.Dead)
+                    return;
+
+                bool isDowned = __instance.Downed;
+                bool isPrisoner = __instance.IsPrisonerOfColony;
+
+                // Check if we should process this strip
+                if (!isDowned && !isPrisoner)
+                    return;
+
+                if (isDowned && !settings.scrapDownedWhenStripped)
+                    return;
+
+                if (isPrisoner && !settings.scrapPrisonersWhenStripped)
+                    return;
+
+                // Don't process player faction (unless prisoner)
+                if (__instance.Faction == Faction.OfPlayer && !isPrisoner)
+                    return;
+
+                // Check hostile requirement (not applicable to prisoners)
+                if (settings.onlyScrapHostiles && !isPrisoner)
+                {
+                    if (__instance.Faction == null || !__instance.Faction.HostileTo(Faction.OfPlayer))
+                        return;
+                }
+
+                // Initialize batch processing for this pawn
+                if (__instance.MapHeld != null)
+                {
+                    pawnsBeingProcessed.Add(__instance);
+                    ScrapUtility.InitializePawnBatch(__instance);
+
+                    // Schedule finalization
+                    Pawn pawnCopy = __instance;
+                    LongEventHandler.ExecuteWhenFinished(delegate
+                    {
+                        if (pawnsBeingProcessed.Contains(pawnCopy))
+                        {
+                            pawnsBeingProcessed.Remove(pawnCopy);
+                            ScrapUtility.FinalizePawnBatch(pawnCopy);
+                        }
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"[LootScrap] Exception in Strip_Prefix: {ex}");
             }
         }
 
@@ -149,16 +230,31 @@ namespace LootScrap
                 if (pawn == null)
                     return;
 
-                // Only process dead pawns
-                if (!pawn.Dead)
+                // Check if we should process this pawn based on state
+                bool isDead = pawn.Dead;
+                bool isDowned = pawn.Downed;
+                bool isPrisoner = pawn.IsPrisonerOfColony;
+
+                // Only process if:
+                // - Dead (always if not corpses only), OR
+                // - Downed and scrapDownedWhenStripped enabled, OR
+                // - Prisoner and scrapPrisonersWhenStripped enabled
+                if (!isDead)
+                {
+                    if (isDowned && !settings.scrapDownedWhenStripped)
+                        return;
+                    if (isPrisoner && !settings.scrapPrisonersWhenStripped)
+                        return;
+                    if (!isDowned && !isPrisoner)
+                        return; // Not dead, not downed, not prisoner - skip
+                }
+
+                // Don't process player faction (unless prisoner strip is enabled and they're a prisoner)
+                if (pawn.Faction == Faction.OfPlayer && !(isPrisoner && settings.scrapPrisonersWhenStripped))
                     return;
 
-                // Don't process player faction
-                if (pawn.Faction == Faction.OfPlayer)
-                    return;
-
-                // Check hostile requirement
-                if (settings.onlyScrapHostiles)
+                // Check hostile requirement (not applicable to prisoners being stripped)
+                if (settings.onlyScrapHostiles && !isPrisoner)
                 {
                     if (pawn.Faction == null || !pawn.Faction.HostileTo(Faction.OfPlayer))
                         return;

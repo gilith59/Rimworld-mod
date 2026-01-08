@@ -46,6 +46,10 @@ namespace LootScrap
                 "Only scrap equipment from hostile faction pawns");
             listingStandard.CheckboxLabeled("Scrap From Corpses Only", ref settings.scrapFromCorpsesOnly,
                 "Only scrap equipment when pawn is dead (not from live pawns)");
+            listingStandard.CheckboxLabeled("Scrap Downed When Stripped", ref settings.scrapDownedWhenStripped,
+                "Downed hostile pawns drop scrap when manually stripped (not just when dead)");
+            listingStandard.CheckboxLabeled("Scrap Prisoners When Stripped", ref settings.scrapPrisonersWhenStripped,
+                "Prisoners drop scrap when stripped instead of keeping their equipment");
 
             listingStandard.Gap(20f);
 
