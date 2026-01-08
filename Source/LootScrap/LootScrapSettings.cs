@@ -50,6 +50,7 @@ namespace LootScrap
         public bool scrapFromCorpsesOnly = false;
         public bool scrapDownedWhenStripped = true;     // Downed hostiles drop scrap when stripped
         public bool scrapPrisonersWhenStripped = true;  // Prisoners drop scrap when stripped
+        public bool scrapFoundCorpses = true;           // Convert pre-existing corpses found on map (ruins, etc)
 
         public override void ExposeData()
         {
@@ -94,6 +95,7 @@ namespace LootScrap
             Scribe_Values.Look(ref scrapFromCorpsesOnly, "scrapFromCorpsesOnly", false);
             Scribe_Values.Look(ref scrapDownedWhenStripped, "scrapDownedWhenStripped", true);
             Scribe_Values.Look(ref scrapPrisonersWhenStripped, "scrapPrisonersWhenStripped", true);
+            Scribe_Values.Look(ref scrapFoundCorpses, "scrapFoundCorpses", true);
         }
     }
 }

@@ -50,6 +50,8 @@ namespace LootScrap
                 "Downed hostile pawns drop scrap when manually stripped (not just when dead)");
             listingStandard.CheckboxLabeled("Scrap Prisoners When Stripped", ref settings.scrapPrisonersWhenStripped,
                 "Prisoners drop scrap when stripped instead of keeping their equipment");
+            listingStandard.CheckboxLabeled("Scrap Found Corpses", ref settings.scrapFoundCorpses,
+                "Pre-existing corpses found on map (ruins, ancient dangers, etc) get scrapped when discovered");
 
             listingStandard.Gap(20f);
 
