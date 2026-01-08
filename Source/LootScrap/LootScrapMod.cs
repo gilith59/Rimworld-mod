@@ -23,6 +23,10 @@ namespace LootScrap
             Listing_Standard listingStandard = new Listing_Standard();
             listingStandard.Begin(viewRect);
 
+            // === RESTART NOTE ===
+            listingStandard.Label("<color=#ffff00>⚠️ Note: Recipe yield changes require game restart to take effect</color>");
+            listingStandard.Gap(12f);
+
             // === GENERAL SETTINGS ===
             listingStandard.Label("<b>General Settings</b>");
             listingStandard.Gap();
