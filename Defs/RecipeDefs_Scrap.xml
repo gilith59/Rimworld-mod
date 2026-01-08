@@ -23,7 +23,7 @@
       </li>
     </ingredients>
     <products>
-      <Steel>15</Steel>
+      <Steel>10</Steel>
     </products>
     <fixedIngredientFilter>
       <thingDefs>
@@ -55,7 +55,7 @@
       </li>
     </ingredients>
     <products>
-      <Steel>35</Steel>
+      <Steel>20</Steel>
     </products>
     <fixedIngredientFilter>
       <thingDefs>
@@ -70,7 +70,7 @@
   <RecipeDef>
     <defName>SmeltHighScrap</defName>
     <label>smelt high scrap</label>
-    <description>Smelt high scrap to recover plasteel and steel.</description>
+    <description>Smelt high scrap to recover steel and plasteel.</description>
     <jobString>Smelting high scrap.</jobString>
     <workSpeedStat>SmeltingSpeed</workSpeedStat>
     <effectWorking>Smelt</effectWorking>
@@ -87,8 +87,8 @@
       </li>
     </ingredients>
     <products>
-      <Plasteel>15</Plasteel>
-      <Steel>35</Steel>
+      <Steel>20</Steel>
+      <Plasteel>5</Plasteel>
     </products>
     <fixedIngredientFilter>
       <thingDefs>
@@ -120,9 +120,9 @@
       </li>
     </ingredients>
     <products>
-      <Plasteel>25</Plasteel>
-      <Gold>5</Gold>
-      <Uranium>5</Uranium>
+      <Plasteel>20</Plasteel>
+      <Gold>3</Gold>
+      <Uranium>3</Uranium>
     </products>
     <fixedIngredientFilter>
       <thingDefs>
@@ -134,19 +134,19 @@
     </recipeUsers>
   </RecipeDef>
 
-  <!-- ========== DISMANTLING RECIPES (Smithy / Machining Table) ========== -->
+  <!-- ========== MACHINING RECIPES (Machining Table Only) ========== -->
 
   <RecipeDef>
-    <defName>DismantleJunkScrap</defName>
-    <label>dismantle junk scrap</label>
-    <description>Dismantle junk scrap to recover steel.</description>
-    <jobString>Dismantling junk scrap.</jobString>
+    <defName>MachineJunkScrap</defName>
+    <label>machine junk scrap into component</label>
+    <description>Machine 3 junk scraps to extract a component. Takes as long as crafting a component (5000 ticks).</description>
+    <jobString>Machining junk scrap.</jobString>
     <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
     <effectWorking>Repair</effectWorking>
     <soundWorking>Recipe_Machining</soundWorking>
-    <workAmount>300</workAmount>
+    <workAmount>5000</workAmount>
     <skillRequirements>
-      <Crafting>3</Crafting>
+      <Crafting>4</Crafting>
     </skillRequirements>
     <ingredients>
       <li>
@@ -155,11 +155,11 @@
             <li>LootScrap_Junk</li>
           </thingDefs>
         </filter>
-        <count>1</count>
+        <count>3</count>
       </li>
     </ingredients>
     <products>
-      <Steel>10</Steel>
+      <ComponentIndustrial>1</ComponentIndustrial>
     </products>
     <fixedIngredientFilter>
       <thingDefs>
@@ -167,21 +167,19 @@
       </thingDefs>
     </fixedIngredientFilter>
     <recipeUsers>
-      <li>ElectricSmithy</li>
-      <li>FueledSmithy</li>
       <li>TableMachining</li>
     </recipeUsers>
   </RecipeDef>
 
   <RecipeDef>
-    <defName>DismantleGoodScrap</defName>
-    <label>dismantle good scrap</label>
-    <description>Dismantle good scrap to recover a component and steel.</description>
-    <jobString>Dismantling good scrap.</jobString>
+    <defName>MachineGoodScrap</defName>
+    <label>machine good scrap into component</label>
+    <description>Machine good scrap to extract a component. Takes as long as crafting a component (5000 ticks).</description>
+    <jobString>Machining good scrap.</jobString>
     <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
     <effectWorking>Repair</effectWorking>
     <soundWorking>Recipe_Machining</soundWorking>
-    <workAmount>500</workAmount>
+    <workAmount>5000</workAmount>
     <skillRequirements>
       <Crafting>4</Crafting>
     </skillRequirements>
@@ -197,7 +195,6 @@
     </ingredients>
     <products>
       <ComponentIndustrial>1</ComponentIndustrial>
-      <Steel>10</Steel>
     </products>
     <fixedIngredientFilter>
       <thingDefs>
@@ -205,21 +202,19 @@
       </thingDefs>
     </fixedIngredientFilter>
     <recipeUsers>
-      <li>ElectricSmithy</li>
-      <li>FueledSmithy</li>
       <li>TableMachining</li>
     </recipeUsers>
   </RecipeDef>
 
   <RecipeDef>
-    <defName>DismantleHighScrap</defName>
-    <label>dismantle high scrap</label>
-    <description>Dismantle high scrap to recover components and plasteel.</description>
-    <jobString>Dismantling high scrap.</jobString>
+    <defName>MachineHighScrap</defName>
+    <label>machine high scrap into components</label>
+    <description>Machine high scrap to extract 2 components. Takes as long as crafting a component (5000 ticks).</description>
+    <jobString>Machining high scrap.</jobString>
     <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
     <effectWorking>Repair</effectWorking>
     <soundWorking>Recipe_Machining</soundWorking>
-    <workAmount>700</workAmount>
+    <workAmount>5000</workAmount>
     <skillRequirements>
       <Crafting>6</Crafting>
     </skillRequirements>
@@ -235,7 +230,6 @@
     </ingredients>
     <products>
       <ComponentIndustrial>2</ComponentIndustrial>
-      <Plasteel>5</Plasteel>
     </products>
     <fixedIngredientFilter>
       <thingDefs>
@@ -243,21 +237,19 @@
       </thingDefs>
     </fixedIngredientFilter>
     <recipeUsers>
-      <li>ElectricSmithy</li>
-      <li>FueledSmithy</li>
       <li>TableMachining</li>
     </recipeUsers>
   </RecipeDef>
 
   <RecipeDef>
-    <defName>DismantleGlitterworldScrap</defName>
-    <label>dismantle glitterworld scrap</label>
-    <description>Dismantle glitterworld scrap to recover an advanced component, plasteel, gold, and uranium.</description>
-    <jobString>Dismantling glitterworld scrap.</jobString>
+    <defName>MachineGlitterworldScrap</defName>
+    <label>machine glitterworld scrap into advanced component</label>
+    <description>Machine glitterworld scrap to extract an advanced component. Takes longer than crafting an advanced component (15000 ticks vs 10000 ticks).</description>
+    <jobString>Machining glitterworld scrap.</jobString>
     <workSpeedStat>GeneralLaborSpeed</workSpeedStat>
     <effectWorking>Repair</effectWorking>
     <soundWorking>Recipe_Machining</soundWorking>
-    <workAmount>1000</workAmount>
+    <workAmount>15000</workAmount>
     <skillRequirements>
       <Crafting>8</Crafting>
     </skillRequirements>
@@ -273,9 +265,6 @@
     </ingredients>
     <products>
       <ComponentSpacer>1</ComponentSpacer>
-      <Plasteel>10</Plasteel>
-      <Gold>1</Gold>
-      <Uranium>1</Uranium>
     </products>
     <fixedIngredientFilter>
       <thingDefs>
@@ -283,8 +272,6 @@
       </thingDefs>
     </fixedIngredientFilter>
     <recipeUsers>
-      <li>ElectricSmithy</li>
-      <li>FueledSmithy</li>
       <li>TableMachining</li>
     </recipeUsers>
   </RecipeDef>

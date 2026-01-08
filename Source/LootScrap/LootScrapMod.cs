@@ -75,51 +75,66 @@ namespace LootScrap
 
             listingStandard.Gap(20f);
 
-            // === JUNK SCRAP YIELDS ===
-            listingStandard.Label("<b>Junk Scrap Yields</b>");
+            // === SMELTER YIELDS ===
+            listingStandard.Label("<b>Smelter Yields (Electric Smelter)</b>");
             listingStandard.Gap();
 
-            listingStandard.Label($"Steel: {settings.junkSteelYield}");
+            listingStandard.Label("Junk Scrap:");
+            listingStandard.Label($"  Steel: {settings.junkSteelYield}");
             settings.junkSteelYield = (int)listingStandard.Slider(settings.junkSteelYield, 5f, 50f);
 
-            listingStandard.Gap(20f);
-
-            // === GOOD QUALITY YIELDS ===
-            listingStandard.Label("<b>Good Quality Scrap Yields</b>");
             listingStandard.Gap();
 
-            listingStandard.Label($"Steel: {settings.goodSteelYield}");
+            listingStandard.Label("Good Quality Scrap:");
+            listingStandard.Label($"  Steel: {settings.goodSteelYield}");
             settings.goodSteelYield = (int)listingStandard.Slider(settings.goodSteelYield, 10f, 100f);
 
-            listingStandard.Label($"Components: {settings.goodComponentYield}");
-            settings.goodComponentYield = (int)listingStandard.Slider(settings.goodComponentYield, 0f, 5f);
-
-            listingStandard.Gap(20f);
-
-            // === HIGH QUALITY YIELDS ===
-            listingStandard.Label("<b>High Quality Scrap Yields</b>");
             listingStandard.Gap();
 
-            listingStandard.Label($"Plasteel: {settings.highPlasteelYield}");
-            settings.highPlasteelYield = (int)listingStandard.Slider(settings.highPlasteelYield, 5f, 50f);
+            listingStandard.Label("High Quality Scrap:");
+            listingStandard.Label($"  Steel: {settings.highSteelYield}");
+            settings.highSteelYield = (int)listingStandard.Slider(settings.highSteelYield, 10f, 100f);
+            listingStandard.Label($"  Plasteel: {settings.highPlasteelYield}");
+            settings.highPlasteelYield = (int)listingStandard.Slider(settings.highPlasteelYield, 0f, 50f);
 
-            listingStandard.Label($"Components: {settings.highComponentYield}");
-            settings.highComponentYield = (int)listingStandard.Slider(settings.highComponentYield, 0f, 10f);
-
-            listingStandard.Gap(20f);
-
-            // === GLITTERWORLD YIELDS ===
-            listingStandard.Label("<b>Glitterworld Scrap Yields</b>");
             listingStandard.Gap();
 
-            listingStandard.Label($"Plasteel: {settings.glitterworldPlasteelYield}");
+            listingStandard.Label("Glitterworld Scrap:");
+            listingStandard.Label($"  Plasteel: {settings.glitterworldPlasteelYield}");
             settings.glitterworldPlasteelYield = (int)listingStandard.Slider(settings.glitterworldPlasteelYield, 10f, 100f);
-
-            listingStandard.Label($"Uranium: {settings.glitterworldUraniumYield}");
+            listingStandard.Label($"  Gold: {settings.glitterworldGoldYield}");
+            settings.glitterworldGoldYield = (int)listingStandard.Slider(settings.glitterworldGoldYield, 0f, 20f);
+            listingStandard.Label($"  Uranium: {settings.glitterworldUraniumYield}");
             settings.glitterworldUraniumYield = (int)listingStandard.Slider(settings.glitterworldUraniumYield, 0f, 20f);
 
-            listingStandard.Label($"Advanced Components: {settings.glitterworldAdvancedComponentYield}");
+            listingStandard.Gap(20f);
+
+            // === MACHINING YIELDS ===
+            listingStandard.Label("<b>Machining Yields (Machining Table)</b>");
+            listingStandard.Gap();
+
+            listingStandard.Label("Junk Scrap: 3x → 1 component (fixed ratio)");
+            listingStandard.Gap();
+
+            listingStandard.Label("Good Quality Scrap:");
+            listingStandard.Label($"  Components: {settings.goodComponentYield}");
+            settings.goodComponentYield = (int)listingStandard.Slider(settings.goodComponentYield, 0f, 5f);
+
+            listingStandard.Gap();
+
+            listingStandard.Label("High Quality Scrap:");
+            listingStandard.Label($"  Components: {settings.highComponentYield}");
+            settings.highComponentYield = (int)listingStandard.Slider(settings.highComponentYield, 0f, 10f);
+
+            listingStandard.Gap();
+
+            listingStandard.Label("Glitterworld Scrap:");
+            listingStandard.CheckboxLabeled("Drop Advanced Component", ref settings.glitterworldDropsAdvancedComponent,
+                "If enabled: 1 Advanced Component. If disabled: 3 Components");
+            listingStandard.Label($"  Advanced Components (if enabled): {settings.glitterworldAdvancedComponentYield}");
             settings.glitterworldAdvancedComponentYield = (int)listingStandard.Slider(settings.glitterworldAdvancedComponentYield, 0f, 10f);
+            listingStandard.Label($"  Components (if disabled): {settings.glitterworldComponentYield}");
+            settings.glitterworldComponentYield = (int)listingStandard.Slider(settings.glitterworldComponentYield, 0f, 10f);
 
             listingStandard.Gap(20f);
 

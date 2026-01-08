@@ -19,22 +19,29 @@ namespace LootScrap
         public int maxScrapPerType = 3;           // Maximum 3 scraps of the same type
         public int maxTotalScrapPerPawn = 5;      // Maximum 5 scraps total per pawn
 
-        // Scrap yields (per scrap)
+        // Scrap yields (per scrap) - SMELTER
         // Junk
-        public int junkSteelYield = 15;
+        public int junkSteelYield = 10;
 
         // Good Quality
-        public int goodSteelYield = 35;
-        public int goodComponentYield = 1;
+        public int goodSteelYield = 20;
 
         // High Quality
-        public int highPlasteelYield = 15;
-        public int highComponentYield = 2;
+        public int highSteelYield = 20;
+        public int highPlasteelYield = 5;
 
         // Glitterworld
-        public int glitterworldPlasteelYield = 25;
-        public int glitterworldUraniumYield = 5;
+        public int glitterworldPlasteelYield = 20;
+        public int glitterworldGoldYield = 3;
+        public int glitterworldUraniumYield = 3;
+
+        // Scrap yields - MACHINING
+        public int junkComponentYield = 0;           // 3 junk = 1 component (handled in recipe)
+        public int goodComponentYield = 1;
+        public int highComponentYield = 2;
+        public int glitterworldComponentYield = 3;   // Alternative to Advanced Component
         public int glitterworldAdvancedComponentYield = 1;
+        public bool glitterworldDropsAdvancedComponent = true;  // Toggle between AC or 3x components
 
         // Filters
         public bool scrapWeapons = true;
@@ -61,21 +68,22 @@ namespace LootScrap
             Scribe_Values.Look(ref maxScrapPerType, "maxScrapPerType", 3);
             Scribe_Values.Look(ref maxTotalScrapPerPawn, "maxTotalScrapPerPawn", 5);
 
-            // Yields - Junk
-            Scribe_Values.Look(ref junkSteelYield, "junkSteelYield", 15);
+            // Yields - Smelter
+            Scribe_Values.Look(ref junkSteelYield, "junkSteelYield", 10);
+            Scribe_Values.Look(ref goodSteelYield, "goodSteelYield", 20);
+            Scribe_Values.Look(ref highSteelYield, "highSteelYield", 20);
+            Scribe_Values.Look(ref highPlasteelYield, "highPlasteelYield", 5);
+            Scribe_Values.Look(ref glitterworldPlasteelYield, "glitterworldPlasteelYield", 20);
+            Scribe_Values.Look(ref glitterworldGoldYield, "glitterworldGoldYield", 3);
+            Scribe_Values.Look(ref glitterworldUraniumYield, "glitterworldUraniumYield", 3);
 
-            // Yields - Good
-            Scribe_Values.Look(ref goodSteelYield, "goodSteelYield", 35);
+            // Yields - Machining
+            Scribe_Values.Look(ref junkComponentYield, "junkComponentYield", 0);
             Scribe_Values.Look(ref goodComponentYield, "goodComponentYield", 1);
-
-            // Yields - High
-            Scribe_Values.Look(ref highPlasteelYield, "highPlasteelYield", 15);
             Scribe_Values.Look(ref highComponentYield, "highComponentYield", 2);
-
-            // Yields - Glitterworld
-            Scribe_Values.Look(ref glitterworldPlasteelYield, "glitterworldPlasteelYield", 25);
-            Scribe_Values.Look(ref glitterworldUraniumYield, "glitterworldUraniumYield", 5);
+            Scribe_Values.Look(ref glitterworldComponentYield, "glitterworldComponentYield", 3);
             Scribe_Values.Look(ref glitterworldAdvancedComponentYield, "glitterworldAdvancedComponentYield", 1);
+            Scribe_Values.Look(ref glitterworldDropsAdvancedComponent, "glitterworldDropsAdvancedComponent", true);
 
             // Filters
             Scribe_Values.Look(ref scrapWeapons, "scrapWeapons", true);
