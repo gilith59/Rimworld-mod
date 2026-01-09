@@ -19,11 +19,15 @@ namespace BeerophageMod
         public override void Tick()
         {
             base.Tick();
-            
-            ticksSinceLastCraving++;
-            
-            // Check for craving every day
-            if (ticksSinceLastCraving % 60000 == 0) // Every day
+
+            // Throttle expensive checks - only run every 250 ticks (~4 seconds)
+            if (!pawn.IsHashIntervalTick(250))
+                return;
+
+            ticksSinceLastCraving += 250;
+
+            // Check for craving once per day (60000 ticks)
+            if (ticksSinceLastCraving >= 60000)
             {
                 CheckForAlcoholCraving();
             }
