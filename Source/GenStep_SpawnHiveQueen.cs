@@ -20,13 +20,22 @@ namespace InsectLairIncident
 
             if (geneline == null)
             {
-                Log.Warning("[InsectLairIncident] No geneline found - using vanilla fallback");
-                geneline = new GenelineData
+                // Pas de portalID = lair vanilla naturel
+                // Vérifier les settings pour savoir si on active VFE pour les lairs vanilla
+                InsectLairSettings settings = InsectLairMod.GetSettings();
+                if (settings.useVFEForVanillaLairs)
                 {
-                    boss = PawnKindDef.Named("HiveQueen"),
-                    defName = "Vanilla",
-                    isVanilla = true
-                };
+                    // Choisir une geneline aléatoire pour rendre les lairs vanilla plus variés
+                    Log.Message("[InsectLairIncident] No portalID found - this is a vanilla InsectLair spawn. Choosing random geneline.");
+                    geneline = GenelineHelper.ChooseRandomGeneline();
+                    Log.Message($"[InsectLairIncident] Random geneline chosen for vanilla lair: {geneline.defName}");
+                }
+                else
+                {
+                    // Utiliser vanilla
+                    Log.Message("[InsectLairIncident] VFE for vanilla lairs is disabled in settings. Using vanilla geneline.");
+                    geneline = GenelineHelper.GetVanillaGeneline();
+                }
             }
             else
             {

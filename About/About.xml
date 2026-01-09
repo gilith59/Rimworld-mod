@@ -3,7 +3,7 @@
   <name>Insect Lair Incident</name>
   <author>Gilith</author>
   <packageId>gilith.insectlairincident</packageId>
-  <modVersion>2.3.2</modVersion>
+  <modVersion>2.5.0</modVersion>
   <supportedVersions>
     <li>1.5</li>
     <li>1.6</li>
@@ -34,12 +34,22 @@ Explore the full Odyssey InsectLair cave with all vanilla rewards: Gravcore, Gra
 A massive boss guards the depths. Defeat it to unlock the ability to collapse the entrance and stop the waves permanently.
 
 [b]VFE Insectoids Integration[/b]
-If VFE Insectoids is installed, each incident chooses a random geneline (Sorne, Nuchadus, Chelis, Kemia, or Xanides). The cave will be filled with insects from that geneline, and the boss will be the geneline's unique leader!
+If VFE Insectoids is installed, each incident chooses a random geneline (Sorne, Nuchadus, Chelis, Kemia, or Xanides). The cave will be filled with insects from that geneline, and the boss will be the geneline's unique leader! Natural vanilla InsectLairs also support VFE genelines (configurable).
 
-[b]Balance[/b]
+[b]Fully Configurable[/b]
+Access the mod settings menu to customize:
+- Threat points multiplier (25% to 300%)
+- Wave spawn interval (0.5 to 5 days)
+- Auto-collapse delay after boss death (1 to 10 days)
+- Incident frequency (earliest day, refire delay)
+- VFE integration for vanilla lairs
+- Quick presets: Easy, Normal, Hard, Extreme
+
+[b]Default Balance[/b]
 - Appears after day 60
 - 45 days minimum between incidents
 - Wave strength: 40% of colony threat points
+- Auto-collapse 3 days after boss death
 - Cannot spawn in unexplored (fogged) areas
 
 Requires: Odyssey DLC

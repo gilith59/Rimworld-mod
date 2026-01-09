@@ -11,7 +11,7 @@ namespace InsectLairIncident
         private Pawn queen;
         private bool queenDead = false;
         private int ticksUntilAutoCollapse = -1;
-        private const int AUTO_COLLAPSE_DELAY = 180000; // 72 heures in-game (production)
+        private int autoCollapseDelay = 180000; // 72 heures par défaut, configuré dans settings
         private bool discoveryMessageShown = false;
         private Map parentMap; // La map de la colonie (surface)
 
@@ -23,6 +23,11 @@ namespace InsectLairIncident
         {
             queen = pawn;
             parentMap = colonyMap;
+
+            // Lire le délai d'auto-collapse depuis les settings
+            InsectLairSettings settings = InsectLairMod.GetSettings();
+            autoCollapseDelay = settings.autoCollapseDelayTicks;
+
             // Ne pas afficher le message ici - attendre que le joueur la voie
         }
 
@@ -58,13 +63,14 @@ namespace InsectLairIncident
             if (queen.Dead || queen.Destroyed)
             {
                 queenDead = true;
-                ticksUntilAutoCollapse = AUTO_COLLAPSE_DELAY;
+                ticksUntilAutoCollapse = autoCollapseDelay;
 
                 // Letter visible partout avec son
                 string bossName = queen.kindDef.LabelCap;
+                float collapseDays = autoCollapseDelay / 60000f; // 60000 ticks = 1 jour
                 Find.LetterStack.ReceiveLetter(
                     "Boss Defeated!",
-                    $"The {bossName} has been defeated! The insect lair will automatically collapse in 5 seconds. [TEST VERSION]",
+                    $"The {bossName} has been defeated! The insect lair will automatically collapse in {collapseDays:F1} days.",
                     LetterDefOf.PositiveEvent,
                     new LookTargets(queen)
                 );
@@ -174,6 +180,7 @@ namespace InsectLairIncident
             Scribe_References.Look(ref parentMap, "parentMap");
             Scribe_Values.Look(ref queenDead, "queenDead");
             Scribe_Values.Look(ref ticksUntilAutoCollapse, "ticksUntilAutoCollapse", -1);
+            Scribe_Values.Look(ref autoCollapseDelay, "autoCollapseDelay", 180000);
             Scribe_Values.Look(ref discoveryMessageShown, "discoveryMessageShown", false);
         }
     }

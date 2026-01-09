@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+
+  <!-- Ajouter notre GenStep au MapGenerator vanilla InsectLair -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/MapGeneratorDef[defName="InsectLair"]/genSteps</xpath>
+    <value>
+      <li>InsectLair_TrackQueen</li>
+    </value>
+  </Operation>
+
+</Patch>

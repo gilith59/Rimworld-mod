@@ -15,8 +15,8 @@ namespace InsectLairIncident
         private bool firstWaveSpawned = false;
         private bool waitingForPortal = false;
 
-        // Production: 1 jour de jeu = 60000 ticks
-        private const int WAVE_INTERVAL_TICKS = 60000; // 1 jour IN-GAME
+        // Wave interval configuré dans les settings (défaut: 60000 = 1 jour)
+        private int waveIntervalTicks = 60000;
 
         private static readonly List<PawnKindDef> insectoidKinds = new List<PawnKindDef>();
 
@@ -30,10 +30,14 @@ namespace InsectLairIncident
         // Appelé par l'IncidentWorker pour enregistrer les threat points
         public void RegisterThreatPoints(float points, IntVec3 position)
         {
-            this.threatPoints = points;
+            // Lire les settings
+            InsectLairSettings settings = InsectLairMod.GetSettings();
+
+            this.threatPoints = points * settings.threatPointsMultiplier;
             this.expectedPortalPosition = position;
             this.waitingForPortal = true;
             this.firstWaveSpawned = false;
+            this.waveIntervalTicks = settings.waveIntervalTicks;
 
             // Choisir une geneline aléatoire (VFE ou vanilla)
             this.chosenGeneline = GenelineHelper.ChooseRandomGeneline();
@@ -108,13 +112,13 @@ namespace InsectLairIncident
                 if (!firstWaveSpawned)
                 {
                     firstWaveSpawned = true;
-                    ticksUntilNextWave = WAVE_INTERVAL_TICKS; // 1 heure pour le test
-                    // Log.Message($"[InsectLairIncident] First wave spawned. Next wave in {WAVE_INTERVAL_TICKS / 2500f} hours");
+                    ticksUntilNextWave = waveIntervalTicks;
+                    // Log.Message($"[InsectLairIncident] First wave spawned. Next wave in {waveIntervalTicks / 2500f} hours");
                 }
                 else
                 {
-                    ticksUntilNextWave = WAVE_INTERVAL_TICKS; // Continuer toutes les heures
-                    // Log.Message("[InsectLairIncident] Recurring wave spawned. Next wave in 1 hour");
+                    ticksUntilNextWave = waveIntervalTicks;
+                    // Log.Message("[InsectLairIncident] Recurring wave spawned. Next wave in {waveIntervalTicks / 2500f} hours");
                 }
             }
         }
@@ -197,6 +201,7 @@ namespace InsectLairIncident
             Scribe_Values.Look(ref ticksUntilNextWave, "ticksUntilNextWave", 60);
             Scribe_Values.Look(ref firstWaveSpawned, "firstWaveSpawned", false);
             Scribe_Values.Look(ref waitingForPortal, "waitingForPortal", false);
+            Scribe_Values.Look(ref waveIntervalTicks, "waveIntervalTicks", 60000);
             Scribe_Deep.Look(ref chosenGeneline, "chosenGeneline");
         }
     }

@@ -140,7 +140,7 @@ namespace InsectLairIncident
         /// <summary>
         /// Retourne une geneline vanilla par défaut
         /// </summary>
-        private static GenelineData GetVanillaGeneline()
+        public static GenelineData GetVanillaGeneline()
         {
             return new GenelineData
             {
