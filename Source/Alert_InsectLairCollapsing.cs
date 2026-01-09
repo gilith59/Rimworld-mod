@@ -54,7 +54,7 @@ namespace InsectLairIncident
             List<Map> maps = Find.Maps;
             for (int i = 0; i < maps.Count; i++)
             {
-                foreach (Thing thing in maps[i].listerThings.ThingsOfDef(ThingDef.Named("InsectLairEntrance")))
+                foreach (Thing thing in maps[i].listerThings.ThingsOfDef(InsectLairDefOf.InsectLairEntrance))
                 {
                     MapPortal portal = thing as MapPortal;
                     if (portal != null && portal.PocketMap != null)

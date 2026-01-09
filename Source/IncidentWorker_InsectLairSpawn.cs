@@ -14,8 +14,8 @@ namespace InsectLairIncident
             Map map = (Map)parms.target;
 
             // Empêcher incidents multiples - vérifier s'il y a déjà un InsectLairEntrance actif
-            if (map.listerThings.AllThings.Any(t =>
-                t.def.defName == "InsectLairEntrance" || t.def.defName == "InsectLairSpawner"))
+            if (map.listerThings.ThingsOfDef(InsectLairDefOf.InsectLairEntrance).Any() ||
+                map.listerThings.ThingsOfDef(InsectLairDefOf.InsectLairSpawner).Any())
             {
                 Log.Warning("[InsectLairIncident] Cannot spawn - InsectLair already active on map");
                 return false;
@@ -26,8 +26,7 @@ namespace InsectLairIncident
                 return false;
 
             // Spawner l'InsectLairSpawner (va progressivement créer l'InsectLairEntrance)
-            ThingDef spawnerDef = ThingDef.Named("InsectLairSpawner");
-            Thing spawner = ThingMaker.MakeThing(spawnerDef);
+            Thing spawner = ThingMaker.MakeThing(InsectLairDefOf.InsectLairSpawner);
             GenSpawn.Spawn(spawner, cell, map);
 
             // Enregistrer les threat points pour la vague (sera déclenchée quand le portal apparaît)

@@ -123,16 +123,8 @@ namespace InsectLairIncident
 
         private void SearchForPortal()
         {
-            // Use ThingDef lookup instead of AllThings scan for better performance
-            ThingDef portalDef = ThingDef.Named("InsectLairEntrance");
-            if (portalDef == null)
-            {
-                Log.Error("[InsectLairIncident] Could not find InsectLairEntrance ThingDef!");
-                return;
-            }
-
-            // Scan only things of this specific type
-            foreach (Thing thing in map.listerThings.ThingsOfDef(portalDef))
+            // Use cached DefOf reference for optimal performance
+            foreach (Thing thing in map.listerThings.ThingsOfDef(InsectLairDefOf.InsectLairEntrance))
             {
                 if (thing is InsectLairEntrance portal && thing.Position.InHorDistOf(expectedPortalPosition, 10f))
                 {

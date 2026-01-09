@@ -148,23 +148,21 @@ namespace InsectLairIncident
 
         private ThingDef GetVFEHiveForGeneline(string genelineDefName)
         {
-            string hiveDef = null;
-
-            if (genelineDefName == "VFEI_Nuchadus")
-                hiveDef = "VFEI2_NuchadusHive";
-            else if (genelineDefName == "VFEI_Chelis")
-                hiveDef = "VFEI2_ChelisHive";
-            else if (genelineDefName == "VFEI_Kemia")
-                hiveDef = "VFEI2_KemianHive";
-            else if (genelineDefName == "VFEI_Xanides")
-                hiveDef = "VFEI2_XanidesHive";
-            // VFEI_Sorne utilise Hive vanilla
-
-            if (hiveDef != null)
+            // Map geneline -> VFE hive using cached DefOf references
+            switch (genelineDefName)
             {
-                return DefDatabase<ThingDef>.GetNamedSilentFail(hiveDef);
+                case "VFEI_Nuchadus":
+                    return InsectLairDefOf.VFEI2_NuchadusHive;
+                case "VFEI_Chelis":
+                    return InsectLairDefOf.VFEI2_ChelisHive;
+                case "VFEI_Kemia":
+                    return InsectLairDefOf.VFEI2_KemianHive;
+                case "VFEI_Xanides":
+                    return InsectLairDefOf.VFEI2_XanidesHive;
+                // VFEI_Sorne utilise Hive vanilla
+                default:
+                    return null;
             }
-            return null;
         }
     }
 }
