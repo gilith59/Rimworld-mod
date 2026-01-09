@@ -156,6 +156,28 @@ namespace InsectLairIncident
                 isVanilla = true
             };
         }
+
+        /// <summary>
+        /// Map geneline name to VFE hive ThingDef
+        /// Utilisé par Thing_SpawnSetup_Patch pour remplacer les hives vanilla
+        /// </summary>
+        public static ThingDef GetVFEHiveForGeneline(string genelineDefName)
+        {
+            switch (genelineDefName)
+            {
+                case "VFEI_Nuchadus":
+                    return InsectLairDefOf.VFEI2_NuchadusHive;
+                case "VFEI_Chelis":
+                    return InsectLairDefOf.VFEI2_ChelisHive;
+                case "VFEI_Kemia":
+                    return InsectLairDefOf.VFEI2_KemianHive;
+                case "VFEI_Xanides":
+                    return InsectLairDefOf.VFEI2_XanidesHive;
+                // VFEI_Sorne utilise Hive vanilla (pas de remplacement)
+                default:
+                    return null;
+            }
+        }
     }
 
     /// <summary>

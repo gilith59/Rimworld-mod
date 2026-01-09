@@ -118,7 +118,7 @@ namespace InsectLairIncident
             }
 
             // Déterminer le ThingDef VFE correspondant
-            ThingDef vfeHiveDef = GetVFEHiveForGeneline(geneline.defName);
+            ThingDef vfeHiveDef = GenelineHelper.GetVFEHiveForGeneline(geneline.defName);
             if (vfeHiveDef == null)
             {
                 Log.Warning($"[InsectLairIncident] No VFE hive found for geneline {geneline.defName}");
@@ -144,25 +144,6 @@ namespace InsectLairIncident
             }
 
             Log.Message($"[InsectLairIncident] Successfully replaced all hives with {vfeHiveDef.defName}");
-        }
-
-        private ThingDef GetVFEHiveForGeneline(string genelineDefName)
-        {
-            // Map geneline -> VFE hive using cached DefOf references
-            switch (genelineDefName)
-            {
-                case "VFEI_Nuchadus":
-                    return InsectLairDefOf.VFEI2_NuchadusHive;
-                case "VFEI_Chelis":
-                    return InsectLairDefOf.VFEI2_ChelisHive;
-                case "VFEI_Kemia":
-                    return InsectLairDefOf.VFEI2_KemianHive;
-                case "VFEI_Xanides":
-                    return InsectLairDefOf.VFEI2_XanidesHive;
-                // VFEI_Sorne utilise Hive vanilla
-                default:
-                    return null;
-            }
         }
     }
 }

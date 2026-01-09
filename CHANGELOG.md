@@ -1,5 +1,39 @@
 # Changelog - Insect Lair Incident
 
+## [2.5.4] - 2026-01-09
+
+### Code Organization
+
+- **Professional directory structure**: Reorganized source code into logical directories for better maintainability
+  - `Harmony/` - All Harmony patches split into separate files by patched type
+    - `PawnGenerator_Patches.cs` - Pawn generation patches
+    - `GenStep_Patches.cs` - GenStep cave generation patches
+    - `MapPortal_Patches.cs` - Portal generation patches
+    - `Thing_Patches.cs` - Thing spawn patches
+  - `Components/` - MapComponents and GameComponents
+  - `Incidents/` - IncidentWorkers
+  - `WorldGen/` - GenSteps
+  - `Utilities/` - Helper classes (GenelineHelper, MapPortalLinkHelper)
+  - `UI/` - User interface (Alerts)
+  - `Settings/` - Mod settings
+
+### Technical Changes
+
+- Split monolithic `HarmonyPatches.cs` (263 lines) into 4 focused patch files (~30-110 lines each)
+- Extracted `MapPortalLinkHelper` to Utilities directory for code reuse
+- Consolidated `GetVFEHiveForGeneline()` method into `GenelineHelper` utility class (removed duplication)
+- Created `HarmonyInit.cs` for clean Harmony initialization
+- Updated build script to compile from new directory structure
+
+### Benefits
+
+- Easier navigation: Find patches by file name instead of scrolling large files
+- Better git workflow: Reduced merge conflicts when multiple patches modified
+- Code reuse: Shared helper methods in Utilities directory
+- Professional standard: Matches organization patterns used by VE mods
+
+---
+
 ## [2.3.0] - 2026-01-06
 
 ### New Feature
