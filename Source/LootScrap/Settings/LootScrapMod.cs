@@ -17,7 +17,7 @@ namespace LootScrap
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
-            Rect viewRect = new Rect(0f, 0f, inRect.width - 30f, 1400f);
+            Rect viewRect = new Rect(0f, 0f, inRect.width - 30f, 1800f);
             Widgets.BeginScrollView(inRect, ref scrollPosition, viewRect);
 
             Listing_Standard listingStandard = new Listing_Standard();

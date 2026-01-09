@@ -5,22 +5,22 @@ echo "🔨 Building LootScrap..."
 
 # Paths
 RIMWORLD_LIBS="/home/gilith/Rimworld mod/RimWorld/RimWorldWin64_Data/Managed"
-HARMONY_DLL="/home/gilith/Rimworld mod/mod rimworld/Harmony/Current/Assemblies/0Harmony.dll"
+HARMONY_DLL="/home/gilith/Rimworld mod/RimWorld/Mods/Harmony/1.5/Assemblies/0Harmony.dll"
 OUTPUT_DIR="../1.5/Assemblies"
 
 # Create output directory
 mkdir -p "$OUTPUT_DIR"
 
-# Compile
+# Compile (includes all subdirectories)
 mcs -target:library \
     -out:"$OUTPUT_DIR/LootScrap.dll" \
-    -reference:"$RIMWORLD_LIBS/Assembly-CSharp.dll" \
-    -reference:"$RIMWORLD_LIBS/UnityEngine.CoreModule.dll" \
-    -reference:"$RIMWORLD_LIBS/UnityEngine.dll" \
-    -reference:"$HARMONY_DLL" \
-    -reference:"$RIMWORLD_LIBS/netstandard.dll" \
+    -r:"$RIMWORLD_LIBS/Assembly-CSharp.dll" \
+    -r:"$RIMWORLD_LIBS/UnityEngine.CoreModule.dll" \
+    -r:"$RIMWORLD_LIBS/UnityEngine.dll" \
+    -r:"$HARMONY_DLL" \
+    -r:"$RIMWORLD_LIBS/netstandard.dll" \
     -nowarn:0219,0162,0414 \
-    LootScrap/*.cs
+    LootScrap/*.cs LootScrap/Harmony/*.cs LootScrap/Utilities/*.cs LootScrap/Settings/*.cs
 
 if [ $? -eq 0 ]; then
     echo "✅ Build successful!"

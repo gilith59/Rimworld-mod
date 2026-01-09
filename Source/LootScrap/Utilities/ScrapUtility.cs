@@ -173,13 +173,13 @@ namespace LootScrap
             Dictionary<ThingDef, int> scrapCounts = new Dictionary<ThingDef, int>();
             int totalScraps = 0;
 
-            // Define scrap types in order from most to least expensive
+            // Define scrap types in order from most to least expensive (using cached DefOf)
             ThingDef[] scrapDefs = new ThingDef[]
             {
-                ThingDef.Named("LootScrap_Glitterworld"),
-                ThingDef.Named("LootScrap_High"),
-                ThingDef.Named("LootScrap_Good"),
-                ThingDef.Named("LootScrap_Junk")
+                LootScrapDefOf.LootScrap_Glitterworld,
+                LootScrapDefOf.LootScrap_High,
+                LootScrapDefOf.LootScrap_Good,
+                LootScrapDefOf.LootScrap_Junk
             };
             int[] scrapCosts = new int[]
             {
