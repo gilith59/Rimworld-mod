@@ -1,6 +1,6 @@
 # Changelog - Loot Scrap
 
-## [1.5.0] - 2026-01-09
+## [1.4.2] - 2026-01-09
 
 ### Code Organization
 
