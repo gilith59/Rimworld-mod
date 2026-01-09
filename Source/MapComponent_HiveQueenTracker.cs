@@ -11,7 +11,7 @@ namespace InsectLairIncident
         private Pawn queen;
         private bool queenDead = false;
         private int ticksUntilAutoCollapse = -1;
-        private const int AUTO_COLLAPSE_DELAY = 15000; // 6 heures in-game (TEST VERSION - prod: 180000 = 72h)
+        private const int AUTO_COLLAPSE_DELAY = 180000; // 72 heures in-game (production)
         private bool discoveryMessageShown = false;
         private Map parentMap; // La map de la colonie (surface)
 

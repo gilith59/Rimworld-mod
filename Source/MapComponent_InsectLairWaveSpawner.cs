@@ -15,8 +15,8 @@ namespace InsectLairIncident
         private bool firstWaveSpawned = false;
         private bool waitingForPortal = false;
 
-        // TEST VERSION: 1 heure de jeu = 2500 ticks (PROD: 60000 = 1 jour)
-        private const int WAVE_INTERVAL_TICKS = 2500; // 1 heure IN-GAME
+        // Production: 1 jour de jeu = 60000 ticks
+        private const int WAVE_INTERVAL_TICKS = 60000; // 1 jour IN-GAME
 
         private static readonly List<PawnKindDef> insectoidKinds = new List<PawnKindDef>();
 
