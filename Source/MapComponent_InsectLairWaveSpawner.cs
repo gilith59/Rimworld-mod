@@ -18,6 +18,10 @@ namespace InsectLairIncident
         // Wave interval configuré dans les settings (défaut: 60000 = 1 jour)
         private int waveIntervalTicks = 60000;
 
+        // Portal search optimization
+        private int portalSearchTicks = 0;
+        private const int PORTAL_SEARCH_INTERVAL = 60; // Check every 1 second instead of every tick
+
         private static readonly List<PawnKindDef> insectoidKinds = new List<PawnKindDef>();
 
         // Geneline choisie pour cette cave (VFE Insectoids support)
@@ -72,18 +76,14 @@ namespace InsectLairIncident
         {
             base.MapComponentTick();
 
-            // Si on attend le portal, chercher s'il est apparu
+            // Si on attend le portal, chercher s'il est apparu (throttled search)
             if (waitingForPortal)
             {
-                // Chercher tous les InsectLairEntrance sur la map
-                foreach (Thing thing in map.listerThings.AllThings)
+                portalSearchTicks++;
+                if (portalSearchTicks >= PORTAL_SEARCH_INTERVAL)
                 {
-                    if (thing is InsectLairEntrance portal && thing.Position.InHorDistOf(expectedPortalPosition, 10f))
-                    {
-                        Log.Warning($"[InsectLairIncident] Portal found at {portal.Position}! Starting wave spawn.");
-                        OnPortalDetected(portal);
-                        break;
-                    }
+                    portalSearchTicks = 0;
+                    SearchForPortal();
                 }
                 return; // Ne pas spawner de vagues tant que le portal n'est pas là
             }
@@ -92,7 +92,7 @@ namespace InsectLairIncident
             if (portalToSpawnFrom == null || portalToSpawnFrom.Destroyed)
                 return;
 
-            // NOUVEAU: Vérifier si le boss est mort
+            // Vérifier si le boss est mort (cheap check)
             if (portalToSpawnFrom.PocketMap != null)
             {
                 MapComponent_HiveQueenTracker tracker = portalToSpawnFrom.PocketMap.GetComponent<MapComponent_HiveQueenTracker>();
@@ -113,12 +113,32 @@ namespace InsectLairIncident
                 {
                     firstWaveSpawned = true;
                     ticksUntilNextWave = waveIntervalTicks;
-                    // Log.Message($"[InsectLairIncident] First wave spawned. Next wave in {waveIntervalTicks / 2500f} hours");
                 }
                 else
                 {
                     ticksUntilNextWave = waveIntervalTicks;
-                    // Log.Message("[InsectLairIncident] Recurring wave spawned. Next wave in {waveIntervalTicks / 2500f} hours");
+                }
+            }
+        }
+
+        private void SearchForPortal()
+        {
+            // Use ThingDef lookup instead of AllThings scan for better performance
+            ThingDef portalDef = ThingDef.Named("InsectLairEntrance");
+            if (portalDef == null)
+            {
+                Log.Error("[InsectLairIncident] Could not find InsectLairEntrance ThingDef!");
+                return;
+            }
+
+            // Scan only things of this specific type
+            foreach (Thing thing in map.listerThings.ThingsOfDef(portalDef))
+            {
+                if (thing is InsectLairEntrance portal && thing.Position.InHorDistOf(expectedPortalPosition, 10f))
+                {
+                    Log.Message($"[InsectLairIncident] Portal detected at {portal.Position}, wave spawning enabled");
+                    OnPortalDetected(portal);
+                    break;
                 }
             }
         }
@@ -202,6 +222,7 @@ namespace InsectLairIncident
             Scribe_Values.Look(ref firstWaveSpawned, "firstWaveSpawned", false);
             Scribe_Values.Look(ref waitingForPortal, "waitingForPortal", false);
             Scribe_Values.Look(ref waveIntervalTicks, "waveIntervalTicks", 60000);
+            Scribe_Values.Look(ref portalSearchTicks, "portalSearchTicks", 0);
             Scribe_Deep.Look(ref chosenGeneline, "chosenGeneline");
         }
     }

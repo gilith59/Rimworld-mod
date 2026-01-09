@@ -92,42 +92,51 @@ namespace InsectLairIncident
         {
             base.MapComponentTick();
 
-            // Vérifier mort du boss (important même si on n'est pas sur cette map)
+            // Throttle expensive operations - only check every 250 ticks (~4 seconds)
+            if (!map.IsHashIntervalTick(250))
+                return;
+
+            // Vérifier mort du boss (cheap check, but important)
             IsQueenDead();
 
-            // Vérifier si la queen est visible par un colonist
+            // Vérifier si la queen est visible par un colonist (expensive LineOfSight checks)
             if (!discoveryMessageShown && queen != null && !queen.Dead && !queen.Destroyed)
             {
-                // Vérifier si au moins un colonist peut la voir
-                foreach (Pawn colonist in map.mapPawns.FreeColonistsSpawned)
-                {
-                    if (GenSight.LineOfSight(colonist.Position, queen.Position, map, true))
-                    {
-                        discoveryMessageShown = true;
-                        string bossMessage = GetBossDiscoveryMessage(queen.kindDef.defName);
-
-                        Find.LetterStack.ReceiveLetter(
-                            "Boss Discovered!",
-                            bossMessage,
-                            LetterDefOf.ThreatBig,
-                            new LookTargets(queen)
-                        );
-
-                        SoundDefOf.Quest_Accepted.PlayOneShotOnCamera(null);
-                        break;
-                    }
-                }
+                CheckQueenDiscovery();
             }
 
-            // Timer auto-collapse
+            // Timer auto-collapse (cheap arithmetic)
             if (queenDead && ticksUntilAutoCollapse > 0)
             {
-                ticksUntilAutoCollapse--;
+                // Decrement by 250 since we only check every 250 ticks
+                ticksUntilAutoCollapse -= 250;
 
                 if (ticksUntilAutoCollapse <= 0)
                 {
-                    // Trouver et détruire l'InsectLairEntrance sur la map parent
                     TriggerAutoCollapse();
+                }
+            }
+        }
+
+        private void CheckQueenDiscovery()
+        {
+            // Vérifier si au moins un colonist peut la voir
+            foreach (Pawn colonist in map.mapPawns.FreeColonistsSpawned)
+            {
+                if (GenSight.LineOfSight(colonist.Position, queen.Position, map, true))
+                {
+                    discoveryMessageShown = true;
+                    string bossMessage = GetBossDiscoveryMessage(queen.kindDef.defName);
+
+                    Find.LetterStack.ReceiveLetter(
+                        "Boss Discovered!",
+                        bossMessage,
+                        LetterDefOf.ThreatBig,
+                        new LookTargets(queen)
+                    );
+
+                    SoundDefOf.Quest_Accepted.PlayOneShotOnCamera(null);
+                    break;
                 }
             }
         }

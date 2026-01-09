@@ -57,7 +57,8 @@ namespace InsectLairIncident
 
                 // Pour les autres insectes, choisir un insecte aléatoire de la geneline
                 PawnKindDef replacementKind = currentGeneline.GetRandomInsect();
-                Log.Warning($"[InsectLairIncident] Replacing {request.KindDef.defName} with {replacementKind.defName} from {currentGeneline.defName} geneline");
+                // Debug info - can be commented out for production
+                // Log.Message($"[InsectLairIncident] Replacing {request.KindDef.defName} with {replacementKind.defName} from {currentGeneline.defName} geneline");
 
                 // Créer une nouvelle request en copiant tous les champs publics
                 var newRequest = new PawnGenerationRequest(
@@ -146,12 +147,12 @@ namespace InsectLairIncident
 
             if (geneline != null)
             {
-                Log.Warning($"[InsectLairIncident] Activating geneline spawning for cave generation: {geneline.defName}");
+                // Log.Message($"[InsectLairIncident] Activating geneline spawning for cave generation: {geneline.defName}");
                 PawnGenerator_GeneratePawn_Patch.SetInsectLairGeneration(true, geneline);
             }
             else
             {
-                Log.Warning("[InsectLairIncident] No geneline found for cave generation!");
+                Log.Error("[InsectLairIncident] No geneline found for cave generation!");
             }
         }
 
@@ -182,7 +183,7 @@ namespace InsectLairIncident
                     // Note: On ne peut pas obtenir l'ID de la pocket map ici car elle n'existe pas encore
                     // On va stocker temporairement le portal ID pour que GenStep puisse le récupérer
                     MapPortalLinkHelper.currentGeneratingPortalID = __instance.thingIDNumber;
-                    Log.Warning($"[InsectLairIncident] Portal {__instance.thingIDNumber} is generating pocket map");
+                    // Log.Message($"[InsectLairIncident] Portal {__instance.thingIDNumber} is generating pocket map");
                 }
             }
         }
@@ -196,7 +197,7 @@ namespace InsectLairIncident
                 if (globalComp != null)
                 {
                     globalComp.LinkPocketMapToPortal(__result.uniqueID, __instance.thingIDNumber);
-                    Log.Warning($"[InsectLairIncident] Linked pocket map {__result.uniqueID} to portal {__instance.thingIDNumber}");
+                    // Log.Message($"[InsectLairIncident] Linked pocket map {__result.uniqueID} to portal {__instance.thingIDNumber}");
                 }
                 MapPortalLinkHelper.currentGeneratingPortalID = -1;
             }
