@@ -12,8 +12,8 @@ namespace LootScrap
         // Scrap costs (silver value per scrap)
         public int junkScrapCost = 100;           // 1 Junk Scrap = 100 silver
         public int goodScrapCost = 300;           // 1 Good Scrap = 300 silver
-        public int highScrapCost = 500;           // 1 High Scrap = 500 silver
-        public int glitterworldScrapCost = 1000;  // 1 Glitterworld Scrap = 1000 silver
+        public int highScrapCost = 750;           // 1 High Scrap = 750 silver (+250)
+        public int glitterworldScrapCost = 1250;  // 1 Glitterworld Scrap = 1250 silver (+250)
 
         // Scrap limits
         public int maxScrapPerType = 3;           // Maximum 3 scraps of the same type

@@ -1,5 +1,20 @@
 # Changelog - Loot Scrap
 
+## [1.4.3] - 2026-01-09
+
+### Balance Changes
+
+- **Increased scrap generation thresholds** for high-tier scraps (default values in mod settings):
+  - High Quality Scrap threshold: 500 → **750 silvers** (+250)
+  - Glitterworld Scrap threshold: 1000 → **1250 silvers** (+250)
+  - Rationale: More expensive equipment is now required to generate high-tier scraps, making them more rare and valuable
+
+### Gameplay Impact
+
+High-tier scraps (High Quality and Glitterworld) are now **harder to obtain** - only very expensive equipment will generate them. This increases their rarity and value in the economy.
+
+---
+
 ## [1.4.2] - 2026-01-09
 
 ### Code Organization
