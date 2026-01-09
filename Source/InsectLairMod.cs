@@ -30,14 +30,13 @@ namespace InsectLairIncident
             listingStandard.Gap(12f);
 
             // Important note at the top
-            listingStandard.Label("<color=#87CEEB>ℹ️ Settings that apply immediately (no restart required):</color>");
-            listingStandard.Label("  • Threat Points Multiplier (for new lairs)");
-            listingStandard.Label("  • Wave Interval (for new lairs)");
-            listingStandard.Label("  • Auto-Collapse Delay (for new lairs)");
-            listingStandard.Label("  • VFE Integration (for new lairs)");
-            listingStandard.Label("  • Incident Frequency");
+            listingStandard.Label("<color=#87CEEB>ℹ️ Settings apply to new lairs (no restart required):</color>");
+            listingStandard.Label("  • Threat Points Multiplier");
+            listingStandard.Label("  • Wave Interval");
+            listingStandard.Label("  • Auto-Collapse Delay");
+            listingStandard.Label("  • VFE Integration for Vanilla Lairs");
             listingStandard.Gap(6f);
-            listingStandard.Label("<color=#ffff00>⚠️ Existing lairs use settings from when they spawned.</color>");
+            listingStandard.Label("<color=#ffff00>⚠️ Existing lairs keep their original settings.</color>");
             listingStandard.Gap(12f);
 
             // THREAT POINTS SECTION
@@ -100,23 +99,6 @@ namespace InsectLairIncident
             );
             listingStandard.Gap(12f);
 
-            // INCIDENT FREQUENCY SECTION
-            listingStandard.Gap(6f);
-            Text.Font = GameFont.Medium;
-            listingStandard.Label("Incident Frequency");
-            Text.Font = GameFont.Small;
-            listingStandard.Gap(6f);
-
-            listingStandard.Label($"Earliest Day: {settings.earliestDay} days");
-            listingStandard.Label("Minimum number of days before the first InsectLair incident can occur.");
-            settings.earliestDay = (int)listingStandard.Slider(settings.earliestDay, 10, 120);
-            listingStandard.Gap(6f);
-
-            listingStandard.Label($"Minimum Refire Delay: {settings.minRefireDays} days");
-            listingStandard.Label("Minimum days between InsectLair incident occurrences.");
-            settings.minRefireDays = (int)listingStandard.Slider(settings.minRefireDays, 15, 90);
-            listingStandard.Gap(12f);
-
             // PRESETS SECTION
             listingStandard.Gap(6f);
             Text.Font = GameFont.Medium;
@@ -129,8 +111,6 @@ namespace InsectLairIncident
                 settings.threatPointsMultiplier = 0.75f;
                 settings.waveIntervalTicks = 90000; // 1.5 jours
                 settings.autoCollapseDelayTicks = 240000; // 96 heures (4 jours)
-                settings.earliestDay = 90;
-                settings.minRefireDays = 60;
             }
 
             if (listingStandard.ButtonText("Normal Mode (Balanced)"))
@@ -138,8 +118,6 @@ namespace InsectLairIncident
                 settings.threatPointsMultiplier = 1.0f;
                 settings.waveIntervalTicks = 60000; // 1 jour
                 settings.autoCollapseDelayTicks = 180000; // 72 heures (3 jours)
-                settings.earliestDay = 60;
-                settings.minRefireDays = 45;
             }
 
             if (listingStandard.ButtonText("Hard Mode (Shorter delays, more threat)"))
@@ -147,8 +125,6 @@ namespace InsectLairIncident
                 settings.threatPointsMultiplier = 1.5f;
                 settings.waveIntervalTicks = 30000; // 12 heures
                 settings.autoCollapseDelayTicks = 120000; // 48 heures (2 jours)
-                settings.earliestDay = 30;
-                settings.minRefireDays = 30;
             }
 
             if (listingStandard.ButtonText("Extreme Mode (Chaos)"))
@@ -156,8 +132,6 @@ namespace InsectLairIncident
                 settings.threatPointsMultiplier = 2.0f;
                 settings.waveIntervalTicks = 15000; // 6 heures
                 settings.autoCollapseDelayTicks = 60000; // 24 heures (1 jour)
-                settings.earliestDay = 20;
-                settings.minRefireDays = 20;
             }
 
             listingStandard.Gap(12f);

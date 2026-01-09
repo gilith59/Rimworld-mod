@@ -3,7 +3,7 @@
   <name>Insect Lair Incident</name>
   <author>Gilith</author>
   <packageId>gilith.insectlairincident</packageId>
-  <modVersion>2.5.0</modVersion>
+  <modVersion>2.5.1</modVersion>
   <supportedVersions>
     <li>1.5</li>
     <li>1.6</li>
@@ -41,8 +41,7 @@ Access the mod settings menu to customize:
 - Threat points multiplier (25% to 300%)
 - Wave spawn interval (0.5 to 5 days)
 - Auto-collapse delay after boss death (1 to 10 days)
-- Incident frequency (earliest day, refire delay)
-- VFE integration for vanilla lairs
+- VFE integration for vanilla lairs (ON/OFF)
 - Quick presets: Easy, Normal, Hard, Extreme
 
 [b]Default Balance[/b]
