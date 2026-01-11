@@ -31,10 +31,10 @@ namespace LootScrap
                 if (__instance.Faction == Faction.OfPlayer)
                     return;
 
-                // Check hostile requirement
-                if (settings.onlyScrapHostiles)
+                // Check hostile requirement (allow neutral/no-faction pawns)
+                if (settings.onlyScrapHostiles && __instance.Faction != null)
                 {
-                    if (__instance.Faction == null || !__instance.Faction.HostileTo(Faction.OfPlayer))
+                    if (!__instance.Faction.HostileTo(Faction.OfPlayer))
                         return;
                 }
 

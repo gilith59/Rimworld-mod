@@ -58,10 +58,10 @@ namespace LootScrap
                 if (pawn.Faction == Faction.OfPlayer && !(isPrisoner && settings.scrapPrisonersWhenStripped))
                     return;
 
-                // Check hostile requirement (not applicable to prisoners being stripped)
-                if (settings.onlyScrapHostiles && !isPrisoner)
+                // Check hostile requirement (not applicable to prisoners, allow neutral faction)
+                if (settings.onlyScrapHostiles && !isPrisoner && pawn.Faction != null)
                 {
-                    if (pawn.Faction == null || !pawn.Faction.HostileTo(Faction.OfPlayer))
+                    if (!pawn.Faction.HostileTo(Faction.OfPlayer))
                         return;
                 }
 

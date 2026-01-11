@@ -34,10 +34,10 @@ namespace LootScrap
                 if (pawn.Faction == Faction.OfPlayer)
                     return;
 
-                // Check hostile requirement
-                if (settings.onlyScrapHostiles)
+                // Check hostile requirement (but always allow neutral/no-faction corpses in ruins)
+                if (settings.onlyScrapHostiles && pawn.Faction != null)
                 {
-                    if (pawn.Faction == null || !pawn.Faction.HostileTo(Faction.OfPlayer))
+                    if (!pawn.Faction.HostileTo(Faction.OfPlayer))
                         return;
                 }
 

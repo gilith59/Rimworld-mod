@@ -1,5 +1,31 @@
 # Changelog - Loot Scrap
 
+## [1.4.4] - 2026-01-09
+
+### Bug Fixes
+
+- **Fixed neutral corpses not being scrapped**: Corpses with no faction (found in ruins, ancient dangers, etc.) are now properly scrapped
+  - Changed logic: `onlyScrapHostiles` setting now allows neutral/no-faction corpses and pawns
+  - Affects: Corpse_SpawnSetup_Patch, Pawn_Kill_Patch, Pawn_Strip_Patch, ThingOwner_TryDrop_Patch
+
+- **Fixed downed enemies not being scrapped**: Downed hostile pawns now properly generate scrap when stripped
+  - Same neutral faction fix applies to downed enemies
+
+### Technical Details
+
+Changed hostile check from:
+```csharp
+if (pawn.Faction == null || !pawn.Faction.HostileTo(Faction.OfPlayer))
+```
+To:
+```csharp
+if (pawn.Faction != null && !pawn.Faction.HostileTo(Faction.OfPlayer))
+```
+
+This allows neutral/no-faction pawns and corpses to be scrapped while still respecting `onlyScrapHostiles` setting for actual factions.
+
+---
+
 ## [1.4.3] - 2026-01-09
 
 ### Balance Changes

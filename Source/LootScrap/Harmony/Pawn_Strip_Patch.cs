@@ -52,10 +52,10 @@ namespace LootScrap
                 if (__instance.Faction == Faction.OfPlayer && !isPrisoner)
                     return;
 
-                // Check hostile requirement (not applicable to prisoners)
-                if (settings.onlyScrapHostiles && !isPrisoner)
+                // Check hostile requirement (not applicable to prisoners, allow neutral faction)
+                if (settings.onlyScrapHostiles && !isPrisoner && __instance.Faction != null)
                 {
-                    if (__instance.Faction == null || !__instance.Faction.HostileTo(Faction.OfPlayer))
+                    if (!__instance.Faction.HostileTo(Faction.OfPlayer))
                         return;
                 }
 
