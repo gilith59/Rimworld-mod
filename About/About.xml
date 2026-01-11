@@ -4,11 +4,10 @@
   <author>gilith59</author>
   <packageId>gilith.lootscrap</packageId>
   <supportedVersions>
-    <li>1.5</li>
     <li>1.6</li>
   </supportedVersions>
-  <modVersion>1.4.4</modVersion>
-  <description>Transforms enemy equipment into scrap materials upon death.
+  <modVersion>1.5.0</modVersion>
+  <description>Transforms enemy equipment into scrap materials when killed or stripped.
 
 🔧 Features:
 • Equipment is destroyed and converted to scrap (inventory items are preserved)

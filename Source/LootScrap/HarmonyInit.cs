@@ -28,11 +28,15 @@ namespace LootScrap
                 typeof(Predicate<IntVec3>)
             });
 
+            var prefixMethod = AccessTools.Method(typeof(ThingOwner_TryDrop_Patch), nameof(ThingOwner_TryDrop_Patch.Prefix));
+            var postfixMethod = AccessTools.Method(typeof(ThingOwner_TryDrop_Patch), nameof(ThingOwner_TryDrop_Patch.Postfix));
+
             if (tryDropMethod1 != null)
             {
                 harmony.Patch(
                     tryDropMethod1,
-                    postfix: new HarmonyMethod(typeof(ThingOwner_TryDrop_Patch).GetMethod(nameof(ThingOwner_TryDrop_Patch.Postfix)))
+                    prefix: new HarmonyMethod(prefixMethod),
+                    postfix: new HarmonyMethod(postfixMethod)
                 );
             }
 
@@ -52,7 +56,8 @@ namespace LootScrap
             {
                 harmony.Patch(
                     tryDropMethod2,
-                    postfix: new HarmonyMethod(typeof(ThingOwner_TryDrop_Patch).GetMethod(nameof(ThingOwner_TryDrop_Patch.Postfix)))
+                    prefix: new HarmonyMethod(prefixMethod),
+                    postfix: new HarmonyMethod(postfixMethod)
                 );
             }
 

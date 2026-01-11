@@ -5,8 +5,8 @@ echo "🔨 Building LootScrap..."
 
 # Paths
 RIMWORLD_LIBS="/home/gilith/Rimworld mod/RimWorld/RimWorldWin64_Data/Managed"
-HARMONY_DLL="/home/gilith/Rimworld mod/RimWorld/Mods/Harmony/1.5/Assemblies/0Harmony.dll"
-OUTPUT_DIR="../1.5/Assemblies"
+HARMONY_DLL="/home/gilith/Rimworld mod/RimWorld/Mods/Harmony/Current/Assemblies/0Harmony.dll"
+OUTPUT_DIR="../1.6/Assemblies"
 
 # Create output directory
 mkdir -p "$OUTPUT_DIR"

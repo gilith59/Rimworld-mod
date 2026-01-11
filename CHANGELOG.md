@@ -1,5 +1,81 @@
 # Changelog - Loot Scrap
 
+## [1.5.0] - 2026-01-11
+
+### Added
+
+- **Automatic weapon batching for downed enemies**
+  - When an enemy becomes downed, their weapon no longer drops to the ground
+  - Weapon is automatically added to an internal batch
+  - When you strip the downed enemy, weapon + apparel convert together as a batch
+  - Scrap value calculated based on total equipment value (weapon + apparel combined)
+
+- **New Harmony patch: Pawn_PostApplyDamage_Patch**
+  - Detects when pawns become downed and initializes batch tracking immediately
+  - Ensures weapons are intercepted before they spawn on the map
+
+### Changed
+
+- **ThingOwner_TryDrop_Patch now has both Prefix and Postfix**
+  - Prefix: Intercepts weapon drops from downed pawns BEFORE spawning
+  - Postfix: Handles apparel drops (after spawning) for batch accumulation
+  - Manual Harmony patching required due to method overloads
+
+- **Description updated**
+  - Changed from "upon death" to "when killed or stripped" to reflect new functionality
+
+### Fixed
+
+- **Harmony initialization errors**
+  - ThingOwner_TryDrop_Patch Prefix now manually patched in HarmonyInit.cs
+  - Removed [HarmonyPatch] attribute to prevent auto-patching conflicts
+
+- **Texture loading errors**
+  - Copied AncientGenetronChunk textures directly into LootScrap mod
+  - No longer depends on VanillaQuestsExpanded-TheGenerator for textures
+
+### Technical
+
+- Added `build-no-debug.sh` script to create production builds without debug logs
+- Production build removes 63 debug log statements (23KB DLL vs 32KB debug)
+- Two distribution versions: standard (23KB) and debug (32KB)
+
+---
+
+## [1.4.5] - 2026-01-11
+
+### Bug Fixes
+
+- **Fixed downed pawns not converting equipment to scrap when manually stripped**
+  - Problem: When manually stripping a downed enemy, equipment was dropped normally instead of converting to scrap
+  - Root cause: `LongEventHandler.ExecuteWhenFinished` only triggers during long operations (map generation, etc.), not manual actions
+  - Solution: Added Postfix to `Pawn.Strip()` that immediately finalizes batch conversion after strip completes
+  - Affects: `Harmony/Pawn_Strip_Patch.cs`
+
+### Technical Details
+
+Changed from async finalization:
+```csharp
+// OLD: Never triggered for manual strips
+LongEventHandler.ExecuteWhenFinished(delegate {
+    ScrapUtility.FinalizePawnBatch(pawn);
+});
+```
+
+To immediate finalization:
+```csharp
+// NEW: Postfix executes right after strip completes
+public static void Postfix(Pawn __instance) {
+    if (pawnsBeingProcessed.Contains(__instance)) {
+        ScrapUtility.FinalizePawnBatch(__instance);
+    }
+}
+```
+
+Now works correctly: Strip → Items drop → ThingOwner patches intercept → Postfix converts to scrap ✅
+
+---
+
 ## [1.4.4] - 2026-01-09
 
 ### Bug Fixes

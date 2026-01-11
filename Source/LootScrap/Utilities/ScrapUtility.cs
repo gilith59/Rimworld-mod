@@ -17,9 +17,15 @@ namespace LootScrap
         /// </summary>
         public static void InitializePawnBatch(Pawn pawn)
         {
+            Log.Message($"[LootScrap] InitializePawnBatch for {pawn.LabelShort}");
             if (!pawnBatches.ContainsKey(pawn))
             {
                 pawnBatches[pawn] = new List<Thing>();
+                Log.Message($"[LootScrap] Created new batch for {pawn.LabelShort}");
+            }
+            else
+            {
+                Log.Message($"[LootScrap] Batch already exists for {pawn.LabelShort} with {pawnBatches[pawn].Count} items");
             }
         }
 
@@ -28,11 +34,14 @@ namespace LootScrap
         /// </summary>
         public static void AddItemToBatch(Pawn pawn, Thing item)
         {
+            Log.Message($"[LootScrap] AddItemToBatch: Adding {item.LabelShort} to {pawn.LabelShort}'s batch");
             if (!pawnBatches.ContainsKey(pawn))
             {
                 pawnBatches[pawn] = new List<Thing>();
+                Log.Message($"[LootScrap] Created new batch for {pawn.LabelShort} (was missing)");
             }
             pawnBatches[pawn].Add(item);
+            Log.Message($"[LootScrap] Batch for {pawn.LabelShort} now has {pawnBatches[pawn].Count} items");
         }
 
         /// <summary>
@@ -40,20 +49,33 @@ namespace LootScrap
         /// </summary>
         public static void FinalizePawnBatch(Pawn pawn)
         {
+            Log.Message($"[LootScrap] FinalizePawnBatch for {pawn.LabelShort}");
+
             if (!pawnBatches.ContainsKey(pawn))
             {
+                Log.Message($"[LootScrap] No batch found for {pawn.LabelShort} - nothing to finalize");
                 return;
             }
 
             List<Thing> items = pawnBatches[pawn];
             pawnBatches.Remove(pawn);
 
+            Log.Message($"[LootScrap] Batch for {pawn.LabelShort} contains {items.Count} items");
+
             if (items.Count == 0)
             {
+                Log.Message($"[LootScrap] Batch is empty - nothing to convert");
                 return;
             }
 
+            // Log all items in batch
+            foreach (var item in items)
+            {
+                Log.Message($"[LootScrap] Batch item: {item.LabelShort}");
+            }
+
             // Convert all items as a batch
+            Log.Message($"[LootScrap] Converting batch to scrap at {pawn.PositionHeld}");
             ConvertBatchToScrap(items, pawn.PositionHeld, pawn.MapHeld);
         }
 
@@ -134,13 +156,19 @@ namespace LootScrap
         /// </summary>
         private static void ConvertBatchToScrap(List<Thing> items, IntVec3 position, Map map)
         {
+            Log.Message($"[LootScrap] ConvertBatchToScrap called with {items?.Count ?? 0} items at {position}");
+
             if (items == null || items.Count == 0 || map == null)
+            {
+                Log.Message($"[LootScrap] ConvertBatchToScrap: Early return - items null={items == null}, count={items?.Count ?? 0}, map null={map == null}");
                 return;
+            }
 
             // Calculate TOTAL value across ALL items
             float totalValue = 0f;
             foreach (Thing item in items)
             {
+                Log.Message($"[LootScrap] Processing item for value calculation: {item.LabelShort}");
                 // Calculate value based on base price and quality only (ignore HP damage)
                 float baseValue = item.def.BaseMarketValue;
                 float itemValue = baseValue;
@@ -167,7 +195,10 @@ namespace LootScrap
 
                 itemValue *= item.stackCount;
                 totalValue += itemValue;
+                Log.Message($"[LootScrap] Item {item.LabelShort}: base={baseValue}, final={itemValue}, total so far={totalValue}");
             }
+
+            Log.Message($"[LootScrap] Total value calculated: {totalValue} silvers");
 
             // Greedy algorithm on TOTAL value
             Dictionary<ThingDef, int> scrapCounts = new Dictionary<ThingDef, int>();
@@ -215,20 +246,30 @@ namespace LootScrap
                 }
             }
 
+            Log.Message($"[LootScrap] Greedy algorithm results: {scrapCounts.Count} scrap types, {totalScraps} total scraps");
+            foreach (var kvp in scrapCounts)
+            {
+                Log.Message($"[LootScrap] Scrap: {kvp.Key.defName} x{kvp.Value}");
+            }
+
             // Destroy ALL items in the batch
+            Log.Message($"[LootScrap] Destroying {items.Count} items");
             foreach (Thing item in items)
             {
                 if (!item.Destroyed)
                 {
+                    Log.Message($"[LootScrap] Destroying {item.LabelShort}");
                     item.Destroy(DestroyMode.Vanish);
                 }
             }
 
             // Spawn scrap stacks
+            Log.Message($"[LootScrap] Spawning {scrapCounts.Count} scrap stacks");
             foreach (var kvp in scrapCounts)
             {
                 Thing scrap = ThingMaker.MakeThing(kvp.Key);
                 scrap.stackCount = kvp.Value;
+                Log.Message($"[LootScrap] Spawning {kvp.Value}x {kvp.Key.defName} at {position}");
 
                 // Use TryPlaceThing to automatically merge with existing stacks
                 GenPlace.TryPlaceThing(scrap, position, map, ThingPlaceMode.Near);
