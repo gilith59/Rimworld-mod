@@ -1,5 +1,22 @@
 # Changelog - Insect Lair Incident
 
+## [2.5.5] - 2026-01-11
+
+### Balance Changes
+
+- **Reduced default wave strength**: Decreased threat points multiplier from 100% to **75%** (-25%)
+  - Effective wave strength: 30% of colony threat points (was 40%)
+  - Rationale: Beta feedback indicated waves were too strong, especially with VFE Insectoids acid-spitting bugs
+  - Players can still adjust this in mod settings (25% to 300% range)
+
+### Bug Fixes
+
+- **Fixed RimSort crash**: Removed corrupted directory with Windows carriage returns in name (`Assemblies^M^M/`)
+  - ZIP file structure is now clean and compatible with RimSort
+  - Manual decompression workaround no longer needed
+
+---
+
 ## [2.5.4] - 2026-01-09
 
 ### Code Organization
