@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Custom category for scraps - completely isolated from ResourcesRaw to prevent quest/trade spawning -->
+  <ThingCategoryDef>
+    <defName>LootScrap_Scraps</defName>
+    <label>scraps</label>
+    <iconPath>UI/Icons/ThingCategories/ResourcesRaw</iconPath>
+    <resourceReadoutRoot>true</resourceReadoutRoot>
+  </ThingCategoryDef>
+
+</Defs>

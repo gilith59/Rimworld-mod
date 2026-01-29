@@ -123,6 +123,11 @@ namespace LootScrap
             listingStandard.Label("<b>Machining Yields (Machining Table)</b>");
             listingStandard.Gap();
 
+            listingStandard.CheckboxLabeled("Require Fabrication Research", ref settings.requireFabricationForMachining,
+                "If enabled, machining recipes require Fabrication research to unlock");
+
+            listingStandard.Gap();
+
             listingStandard.Label("Junk Scrap: 3x → 1 component (fixed ratio)");
             listingStandard.Gap();
 
@@ -139,7 +144,7 @@ namespace LootScrap
             listingStandard.Gap();
 
             listingStandard.Label("Glitterworld Scrap:");
-            listingStandard.CheckboxLabeled("Drop Advanced Component", ref settings.glitterworldDropsAdvancedComponent,
+            listingStandard.CheckboxLabeled("Give Advanced Component", ref settings.glitterworldDropsAdvancedComponent,
                 "If enabled: 1 Advanced Component. If disabled: 3 Components");
             listingStandard.Label($"  Advanced Components (if enabled): {settings.glitterworldAdvancedComponentYield}");
             settings.glitterworldAdvancedComponentYield = (int)listingStandard.Slider(settings.glitterworldAdvancedComponentYield, 0f, 10f);

@@ -26,8 +26,13 @@
       <DeteriorationRate>2</DeteriorationRate>
     </statBases>
     <thingCategories>
-      <li>ResourcesRaw</li>
+      <li>LootScrap_Scraps</li>
     </thingCategories>
+    <tradeability>None</tradeability>
+    <!-- Explicitly prevent quest rewards - foolproof method from Ov Kinder -->
+    <thingSetMakerTags Inherit="false">
+      <li IsNull="True"/>
+    </thingSetMakerTags>
   </ThingDef>
 
   <!-- Junk Scrap -->
@@ -36,9 +41,9 @@
     <label>junk scrap</label>
     <description>Twisted metal and broken components from destroyed low-quality equipment. Can be smelted down for basic steel.\n\nThis scrap came from cheap, worn-out gear that wasn't worth keeping intact.</description>
     <graphicData>
-      <texPath>Things/AncientJunk/AncientGenetronChunk/AncientGenetronChunkA</texPath>
+      <texPath>Things/Building/Ancient/OpenableContainers/SteelSlagBox_Close</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <color>(120,100,80)</color>
+      <drawSize>(0.6,0.6)</drawSize>
     </graphicData>
     <statBases>
       <MarketValue>1.5</MarketValue>
@@ -54,9 +59,9 @@
     <label>good quality scrap</label>
     <description>Salvageable materials from decent equipment. Contains usable steel and occasionally intact components.\n\nThis scrap came from standard military-grade equipment.</description>
     <graphicData>
-      <texPath>Things/AncientJunk/AncientGenetronChunk/AncientGenetronChunkB</texPath>
+      <texPath>Things/Building/Ancient/OpenableContainers/ComponentBox_Close</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <color>(140,140,120)</color>
+      <drawSize>(0.6,0.6)</drawSize>
     </graphicData>
     <statBases>
       <MarketValue>5</MarketValue>
@@ -72,9 +77,9 @@
     <label>high quality scrap</label>
     <description>Advanced materials from high-quality equipment. Contains plasteel alloys and salvageable components.\n\nThis scrap came from expensive, well-crafted gear designed for professional soldiers.</description>
     <graphicData>
-      <texPath>Things/AncientJunk/AncientGenetronChunk/AncientGenetronChunkE</texPath>
+      <texPath>Things/Building/Ancient/OpenableContainers/SpacerComponentBox_Close</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <color>(180,180,180)</color>
+      <drawSize>(0.6,0.6)</drawSize>
     </graphicData>
     <statBases>
       <MarketValue>15</MarketValue>
@@ -90,9 +95,10 @@
     <label>glitterworld scrap</label>
     <description>Exotic materials from ultra-tech equipment. Contains plasteel, uranium, and advanced components that survived destruction.\n\nThis scrap came from glitterworld-quality equipment, the finest gear money can buy.</description>
     <graphicData>
-      <texPath>Things/AncientJunk/AncientGenetronChunk/AncientGenetronChunkF</texPath>
+      <texPath>Things/Building/Ancient/OpenableContainers/SpacerComponentBox_Close</texPath>
       <graphicClass>Graphic_Single</graphicClass>
-      <color>(220,200,255)</color>
+      <drawSize>(0.6,0.6)</drawSize>
+      <color>(255,255,50)</color>
     </graphicData>
     <statBases>
       <MarketValue>40</MarketValue>

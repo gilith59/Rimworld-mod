@@ -1,5 +1,36 @@
 # Changelog - Loot Scrap
 
+## [1.6.1] - 2026-01-29
+
+### Visual
+
+- **Glitterworld scrap now has bright yellow color** (255,255,50)
+  - Previously shared same violet color as High Quality scrap
+  - Now easily distinguishable: High Quality = violet, Glitterworld = bright yellow-gold
+  - Uses Odyssey SpacerComponentBox texture with yellow tint
+
+---
+
+## [1.6.0] - 2026-01-11
+
+### Visual
+
+- **New Odyssey-themed textures** for all scrap tiers
+  - Junk Scrap → SteelSlagBox (rusty metal box)
+  - Good Quality Scrap → ComponentBox (standard ancient container)
+  - High Quality Scrap → SpacerComponentBox (advanced violet container)
+  - Glitterworld Scrap → SpacerComponentBox with gold color
+
+### Fixed
+
+- **Triple protection against quest rewards**
+  - Removed parent category inheritance (no longer child of ResourcesRaw)
+  - Added foolproof `<thingSetMakerTags Inherit="false"><li IsNull="True"/></thingSetMakerTags>`
+  - Set `tradeability=None` to prevent traders
+  - Scraps will NEVER appear in quest rewards or trader inventories
+
+---
+
 ## [1.5.0] - 2026-01-11
 
 ### Added

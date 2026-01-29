@@ -6,7 +6,7 @@
   <supportedVersions>
     <li>1.6</li>
   </supportedVersions>
-  <modVersion>1.5.0</modVersion>
+  <modVersion>1.6.1</modVersion>
   <description>Transforms enemy equipment into scrap materials when killed or stripped.
 
 🔧 Features:
