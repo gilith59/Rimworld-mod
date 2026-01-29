@@ -21,20 +21,16 @@ namespace InsectLairIncident
             if (geneline == null)
             {
                 // Pas de portalID = lair vanilla naturel
-                // Vérifier les settings pour savoir si on active VFE pour les lairs vanilla
-                InsectLairSettings settings = InsectLairMod.GetSettings();
-                if (settings.useVFEForVanillaLairs)
+                // ChooseRandomGeneline() gère déjà le setting disableVFEInsects en interne
+                geneline = GenelineHelper.ChooseRandomGeneline();
+
+                if (!geneline.isVanilla)
                 {
-                    // Choisir une geneline aléatoire pour rendre les lairs vanilla plus variés
-                    Log.Message("[InsectLairIncident] No portalID found - this is a vanilla InsectLair spawn. Choosing random geneline.");
-                    geneline = GenelineHelper.ChooseRandomGeneline();
-                    Log.Message($"[InsectLairIncident] Random geneline chosen for vanilla lair: {geneline.defName}");
+                    Log.Message($"[InsectLairIncident] Vanilla InsectLair spawn - using VFE geneline: {geneline.defName}");
                 }
                 else
                 {
-                    // Utiliser vanilla
-                    Log.Message("[InsectLairIncident] VFE for vanilla lairs is disabled in settings. Using vanilla geneline.");
-                    geneline = GenelineHelper.GetVanillaGeneline();
+                    Log.Message("[InsectLairIncident] Vanilla InsectLair spawn - using vanilla geneline (VFE disabled in settings)");
                 }
             }
             else
@@ -49,20 +45,31 @@ namespace InsectLairIncident
             if (queen != null)
             {
                 // Remplacer par le boss de la geneline si ce n'est pas vanilla
+                // MAIS garder HiveQueen vanilla pour VFEI_Sorne (Empress pond trop d'œufs)
                 if (!geneline.isVanilla && geneline.boss != null)
                 {
-                    IntVec3 queenPos = queen.Position;
-                    // Log.Message($"[InsectLairIncident] Replacing vanilla HiveQueen with {geneline.boss.defName}");
+                    // Vérifier si le boss est l'Empress (VFEI_Sorne geneline)
+                    if (geneline.boss.defName == "VFEI2_Empress")
+                    {
+                        Log.Warning($"[InsectLairIncident] VFEI_Sorne detected - keeping vanilla HiveQueen (Empress spawns too many eggs). Queen: {queen?.LabelCap ?? "NULL"}");
+                        // Ne rien faire - garder la HiveQueen vanilla
+                    }
+                    else
+                    {
+                        // Autres genelines VFE - remplacer normalement
+                        IntVec3 queenPos = queen.Position;
+                        // Log.Message($"[InsectLairIncident] Replacing vanilla HiveQueen with {geneline.boss.defName}");
 
-                    // Détruire la vanilla queen
-                    queen.Destroy();
+                        // Détruire la vanilla queen
+                        queen.Destroy();
 
-                    // Spawner le boss de la geneline
-                    Pawn boss = PawnGenerator.GeneratePawn(geneline.boss, Faction.OfInsects);
-                    GenSpawn.Spawn(boss, queenPos, map);
-                    queen = boss;
+                        // Spawner le boss de la geneline
+                        Pawn boss = PawnGenerator.GeneratePawn(geneline.boss, Faction.OfInsects);
+                        GenSpawn.Spawn(boss, queenPos, map);
+                        queen = boss;
 
-                    // Log.Message($"[InsectLairIncident] Spawned {geneline.boss.defName} at {queenPos}");
+                        // Log.Message($"[InsectLairIncident] Spawned {geneline.boss.defName} at {queenPos}");
+                    }
                 }
             }
             else
@@ -103,7 +110,7 @@ namespace InsectLairIncident
             Map parentMap = Find.Maps.FirstOrDefault(m => m.IsPlayerHome);
             tracker.RegisterQueen(queen, parentMap);
 
-            // Log.Message($"[InsectLairIncident] Registered {queen.kindDef.defName} ({geneline.defName} geneline) at {queen.Position}");
+            Log.Warning($"[InsectLairIncident] Registered {queen.kindDef.defName} ({geneline.defName} geneline) at {queen.Position}. Queen alive: {!queen.Dead}");
         }
 
         private void ReplaceVanillaHivesWithVFE(Map map, GenelineData geneline)

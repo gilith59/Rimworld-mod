@@ -11,7 +11,7 @@ namespace InsectLairIncident
         private Pawn queen;
         private bool queenDead = false;
         private int ticksUntilAutoCollapse = -1;
-        private int autoCollapseDelay = 180000; // 72 heures par défaut, configuré dans settings
+        private int autoCollapseDelay = 180000; // 180000 ticks = 3 jours
         private bool discoveryMessageShown = false;
         private Map parentMap; // La map de la colonie (surface)
 
@@ -24,9 +24,8 @@ namespace InsectLairIncident
             queen = pawn;
             parentMap = colonyMap;
 
-            // Lire le délai d'auto-collapse depuis les settings
-            InsectLairSettings settings = InsectLairMod.GetSettings();
-            autoCollapseDelay = settings.autoCollapseDelayTicks;
+            // Charger le délai depuis les settings
+            autoCollapseDelay = InsectLairMod.GetSettings().autoCollapseDelayTicks;
 
             // Ne pas afficher le message ici - attendre que le joueur la voie
         }
@@ -92,15 +91,22 @@ namespace InsectLairIncident
         {
             base.MapComponentTick();
 
+            // Ne rien faire si pas de queen enregistrée (évite les conflits multi-map)
+            if (queen == null)
+                return;
+
             // Throttle expensive operations - only check every 250 ticks (~4 seconds)
             if (!map.IsHashIntervalTick(250))
                 return;
+
+            // Debug: Log tick check
+            Log.Warning($"[InsectLairIncident] MapComponentTick: Queen exists: {queen.LabelCap}, Dead: {queen.Dead}, Destroyed: {queen.Destroyed}, queenDead flag: {queenDead}");
 
             // Vérifier mort du boss (cheap check, but important)
             IsQueenDead();
 
             // Vérifier si la queen est visible par un colonist (expensive LineOfSight checks)
-            if (!discoveryMessageShown && queen != null && !queen.Dead && !queen.Destroyed)
+            if (!discoveryMessageShown && !queen.Dead && !queen.Destroyed)
             {
                 CheckQueenDiscovery();
             }

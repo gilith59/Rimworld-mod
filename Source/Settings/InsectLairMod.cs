@@ -34,7 +34,7 @@ namespace InsectLairIncident
             listingStandard.Label("  • Threat Points Multiplier");
             listingStandard.Label("  • Wave Interval");
             listingStandard.Label("  • Auto-Collapse Delay");
-            listingStandard.Label("  • VFE Integration for Vanilla Lairs");
+            listingStandard.Label("  • VFE Insectoids Integration");
             listingStandard.Gap(6f);
             listingStandard.Label("<color=#ffff00>⚠️ Existing lairs keep their original settings.</color>");
             listingStandard.Gap(12f);
@@ -93,9 +93,9 @@ namespace InsectLairIncident
             listingStandard.Gap(6f);
 
             listingStandard.CheckboxLabeled(
-                "Use VFE genelines for vanilla InsectLairs",
-                ref settings.useVFEForVanillaLairs,
-                "When enabled, naturally spawning vanilla InsectLairs will use random VFE Insectoids genelines instead of vanilla queens."
+                "Disable VFE Insectoids (Force Vanilla)",
+                ref settings.disableVFEInsects,
+                "When enabled, lairs will always use vanilla insects even if VFE Insectoids 2 is installed."
             );
             listingStandard.Gap(12f);
 
@@ -106,31 +106,31 @@ namespace InsectLairIncident
             Text.Font = GameFont.Small;
             listingStandard.Gap(6f);
 
-            if (listingStandard.ButtonText("Easy Mode (Longer delays, less threat)"))
+            if (listingStandard.ButtonText("Easy Mode (Default - Longer delays, less threat)"))
             {
-                settings.threatPointsMultiplier = 0.75f;
+                settings.threatPointsMultiplier = 0.5f;
                 settings.waveIntervalTicks = 90000; // 1.5 jours
                 settings.autoCollapseDelayTicks = 240000; // 96 heures (4 jours)
             }
 
             if (listingStandard.ButtonText("Normal Mode (Balanced)"))
             {
-                settings.threatPointsMultiplier = 1.0f;
+                settings.threatPointsMultiplier = 0.75f;
                 settings.waveIntervalTicks = 60000; // 1 jour
                 settings.autoCollapseDelayTicks = 180000; // 72 heures (3 jours)
             }
 
             if (listingStandard.ButtonText("Hard Mode (Shorter delays, more threat)"))
             {
-                settings.threatPointsMultiplier = 1.5f;
-                settings.waveIntervalTicks = 30000; // 12 heures
+                settings.threatPointsMultiplier = 1.0f;
+                settings.waveIntervalTicks = 45000; // 18 heures
                 settings.autoCollapseDelayTicks = 120000; // 48 heures (2 jours)
             }
 
             if (listingStandard.ButtonText("Extreme Mode (Chaos)"))
             {
-                settings.threatPointsMultiplier = 2.0f;
-                settings.waveIntervalTicks = 15000; // 6 heures
+                settings.threatPointsMultiplier = 1.5f;
+                settings.waveIntervalTicks = 30000; // 12 heures
                 settings.autoCollapseDelayTicks = 60000; // 24 heures (1 jour)
             }
 

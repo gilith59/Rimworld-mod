@@ -11,12 +11,12 @@ namespace InsectLairIncident
         private InsectLairEntrance portalToSpawnFrom;
         private float threatPoints;
         private IntVec3 expectedPortalPosition;
-        private int ticksUntilNextWave = 60; // 1 seconde de délai pour la première
+        private int ticksUntilNextWave = 60; // DEBUG: 1 seconde de délai pour la première
         private bool firstWaveSpawned = false;
         private bool waitingForPortal = false;
+        private bool waveWarningShown = false;
 
-        // Wave interval configuré dans les settings (défaut: 60000 = 1 jour)
-        private int waveIntervalTicks = 60000;
+        private int waveIntervalTicks = 60000; // 1 jour (chargé depuis settings)
 
         // Portal search optimization
         private int portalSearchTicks = 0;
@@ -41,6 +41,7 @@ namespace InsectLairIncident
             this.expectedPortalPosition = position;
             this.waitingForPortal = true;
             this.firstWaveSpawned = false;
+            // Charger l'intervalle depuis les settings
             this.waveIntervalTicks = settings.waveIntervalTicks;
 
             // Choisir une geneline aléatoire (VFE ou vanilla)
@@ -104,6 +105,22 @@ namespace InsectLairIncident
 
             ticksUntilNextWave--;
 
+            // Warning 2-3h avant la vague (7200-10800 ticks)
+            // DEBUG: 30 ticks = 0.5 secondes avant
+            const int WARNING_TICKS = 9000; // 2.5 heures
+
+            if (!waveWarningShown && ticksUntilNextWave <= WARNING_TICKS && firstWaveSpawned)
+            {
+                waveWarningShown = true;
+                string warningText = "The lair is stirring... Ominous chittering echoes from the depths. A new wave approaches!";
+                Find.LetterStack.ReceiveLetter(
+                    "Lair Activity",
+                    warningText,
+                    LetterDefOf.ThreatSmall,
+                    new LookTargets(portalToSpawnFrom)
+                );
+            }
+
             if (ticksUntilNextWave <= 0)
             {
                 SpawnInsectoidWave();
@@ -117,6 +134,7 @@ namespace InsectLairIncident
                 else
                 {
                     ticksUntilNextWave = waveIntervalTicks;
+                    waveWarningShown = false; // Reset pour la prochaine vague
                 }
             }
         }
@@ -215,6 +233,7 @@ namespace InsectLairIncident
             Scribe_Values.Look(ref waitingForPortal, "waitingForPortal", false);
             Scribe_Values.Look(ref waveIntervalTicks, "waveIntervalTicks", 60000);
             Scribe_Values.Look(ref portalSearchTicks, "portalSearchTicks", 0);
+            Scribe_Values.Look(ref waveWarningShown, "waveWarningShown", false);
             Scribe_Deep.Look(ref chosenGeneline, "chosenGeneline");
         }
     }

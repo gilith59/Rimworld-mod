@@ -1,5 +1,35 @@
 # Changelog - Insect Lair Incident
 
+## [2.6.0] - 2026-01-29
+
+### Balance Changes
+
+- **Easier default difficulty (Easy Mode)**: Reduced threat multiplier from 75% to **50%** (-25%)
+  - Effective wave strength: 20% of colony threat points (was 30%)
+  - Rationale: First insect waves should be more manageable for new players
+  - Updated presets: Easy (50%), Normal (75%), Hard (100%), Extreme (150%)
+
+### Features
+
+- **Wave warning system**: Receive an alert 2.5 hours before each wave arrives
+  - Letter type: ThreatSmall (yellow)
+  - Message: "The lair is stirring... Ominous chittering echoes from the depths. A new wave approaches!"
+  - Gives players time to prepare defenses and position colonists
+
+- **VFE Insectoids disable option**: New setting to force vanilla insects even if VFE installed
+  - Setting name: "Disable VFE Insectoids (Force Vanilla)"
+  - When enabled, all lairs use vanilla insects instead of VFE genelines
+  - Useful for players who want consistent vanilla experience
+
+### Bug Fixes
+
+- **Fixed auto-collapse timer bug with multi-map games**
+  - Problem: MapComponentTick ran on ALL maps, causing conflicts when queen was on a different map
+  - Solution: Added early return if queen == null in MapComponent_HiveQueenTracker
+  - Prevents timer bugs when multiple maps are loaded
+
+---
+
 ## [2.5.5] - 2026-01-11
 
 ### Balance Changes

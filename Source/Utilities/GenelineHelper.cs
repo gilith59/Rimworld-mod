@@ -50,6 +50,13 @@ namespace InsectLairIncident
         /// </summary>
         public static GenelineData ChooseRandomGeneline()
         {
+            // Vérifier si l'utilisateur a désactivé VFE dans les settings
+            InsectLairSettings settings = InsectLairMod.GetSettings();
+            if (settings.disableVFEInsects)
+            {
+                return GetVanillaGeneline();
+            }
+
             if (!IsVFEInsectoidsLoaded())
             {
                 return GetVanillaGeneline();

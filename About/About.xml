@@ -3,7 +3,7 @@
   <name>Insect Lair Incident</name>
   <author>Gilith</author>
   <packageId>gilith.insectlairincident</packageId>
-  <modVersion>2.5.5</modVersion>
+  <modVersion>2.6.0</modVersion>
   <supportedVersions>
     <li>1.5</li>
     <li>1.6</li>
@@ -44,11 +44,13 @@ Access the mod settings menu to customize:
 - VFE integration for vanilla lairs (ON/OFF)
 - Quick presets: Easy, Normal, Hard, Extreme
 
-[b]Default Balance[/b]
+[b]Default Balance (Easy Mode)[/b]
 - Appears after day 60
 - 45 days minimum between incidents
-- Wave strength: 30% of colony threat points (75% multiplier × 40% base)
-- Auto-collapse 3 days after boss death
+- Wave strength: 20% of colony threat points (50% multiplier × 40% base)
+- Waves every 1.5 days
+- Warning 2.5 hours before each wave
+- Auto-collapse 4 days after boss death
 - Cannot spawn in unexplored (fogged) areas
 
 Requires: Odyssey DLC
